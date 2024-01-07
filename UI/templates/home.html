@@ -11,12 +11,15 @@
     <div class="home">
       <div class="div">
         <div class="frame">
-          <div class="search-header">
-            <img class="img" src="img/search.svg" />
-            <div class="text-wrapper">Search re</div>
-            <img class="img" src="img/x-circle.svg" />
-            <div class="search-blinker"><img class="line" src="img/line-3.svg" /></div>
-          </div>
+          <form method="post">
+            <div class="search-header">
+              <img class="img" src="{%static 'UI/img/search.svg'%}" />
+              <!-- <div class="text-wrapper">Search Company Name to Start</div> -->
+              <input type="text" name="cmpnyname" id="cmpnyname" placeholder="Search Company Name">
+              <!-- <img class="img" src="{%static 'UI/img/x-circle.svg'%}" /> -->
+              <!-- <div class="search-blinker"><img class="line" src="{%static 'UI/img/line-3.svg'%}" /></div> -->
+            </div>
+          </form>
         </div>
         <div class="overlap-group">
           <div class="nav-nav-header">
@@ -98,10 +101,14 @@
           </p>
           <p class="text"><span class="span">answers would be because cmpnyinfo is</span></p>
         </div>
-        <img class="line-2" src="img/line-4.svg" />
-        <img class="line-3" src="img/line-5.svg" />
-        <img class="line-4" src="img/line-6.svg" />
-        <div class="e-mail-field"><div class="text-wrapper-11">Enter e-mail here...</div></div>
+        <img class="line-2" src="{%static 'UI/img/line-4.svg'%}" />
+        <img class="line-3" src="{%static 'UI/img/line-5.svg'%}" />
+        <img class="line-4" src="{%static 'UI/img/line-6.svg'%}" />
+        <div class="e-mail-field">
+          <form method="post" class="text-wrapper-11">
+            <input type="text" name="email" id="email" placeholder="Enter e-mail here">
+          </form>
+        </div>
         <button class="sign-up-button"><div class="text-wrapper-10">SIGN UP</div></button>
         <p class="text-wrapper-9">
           Currently, the website provides information for 100 companies listed in the KOSPI (Korean Stock Price Index).

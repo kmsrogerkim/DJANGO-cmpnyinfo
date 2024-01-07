@@ -36,6 +36,16 @@
     flex: 0 0 auto;
     margin-right: -6px;
   }
+
+  .home .search-header input {
+    background: transparent;
+    border: 0;
+  }
+
+  #cmpnyname {
+    background: transparent;
+    border: 0;
+  }
   
   .home .img {
     position: relative;
@@ -371,6 +381,7 @@
     border-radius: 5px;
     border: 1px solid;
     border-color: #ffffff;
+    align-items: flex-start;
   }
   
   .home .text-wrapper-11 {
