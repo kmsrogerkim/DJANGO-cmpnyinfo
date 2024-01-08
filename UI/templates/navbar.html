@@ -1,0 +1,20 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="{%static 'UI/css/globals.css'%}" />
+    <link rel="stylesheet" href="{%static 'UI/css/styleguide.css'%}" />
+    <link rel="stylesheet" href="{%static 'UI/css/nav_style.css'%}" />
+  </head>
+  <body>
+        <header class="header">
+            <a href="{%url 'home'%}" class="logo">cmpnyinfo</a>
+            <nav class="navbar">
+                <a href="{%url 'home'%}">Home</a>
+                <a href="{%url 'sign_in'%}">Sign-in</a>
+                <a href="{%url 'home'%}">About</a>
+            </nav>
+        </header>
+    </body>
+</html>
