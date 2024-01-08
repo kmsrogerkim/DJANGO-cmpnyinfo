@@ -1,11 +1,14 @@
 {%load static%}
+{%include 'navbar.html'%}
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{%static 'UI/css/globals.css'%}" />
     <link rel="stylesheet" href="{%static 'UI/css/styleguide.css'%}" />
     <link rel="stylesheet" href="{%static 'UI/css/style.css'%}" />
+    <link rel="stylesheet" href="{%static 'UI/css/nav_style.css'%}" />
   </head>
   <body>
     <div class="home">
@@ -23,24 +26,6 @@
               <!-- <div class="search-blinker"><img class="line" src="{%static 'UI/img/line-3.svg'%}" /></div> -->
             </div>
           </form>
-        </div>
-        <div class="overlap-group">
-          <div class="nav-nav-header">
-            <div class="navbar-wrapper">
-              <div class="navbar">
-                <li class= "div-wrapper">
-                  <a class= "text-wrapper-2" href="{%url 'home'%}">Home</a>
-                </li>
-                <li class= "div-wrapper">
-                    <a class= "text-wrapper-2" href="{%url 'sign_in'%}">Sign-in</a>
-                </li>
-                <li class= "div-wrapper">
-                    <a class= "text-wrapper-2" href="{%url 'home'%}">About</a>
-                </li>
-              </div>
-            </div>
-          </div>
-          <div class="frame-2"><div class="text-wrapper-3">cmpnyinfo</div></div>
         </div>
         <p class="this-website-is">
           <span class="span">This website is provides a </span>

@@ -6,7 +6,7 @@
 }
 
 body {
-    min-height: 100px;
+    min-height: 10px;
 }
 
 .header {
@@ -35,4 +35,34 @@ body {
     font-weight: 500;
     text-decoration: none;
     margin-left: 40px;
+}
+
+@media (max-width: 425px) {
+    .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 20px 100px;
+        background: black;
+        display: flex;
+        justify-content: space-between;
+        align-items: left;
+        z-index: 100;
+    }
+
+    .logo {
+        font-size: 12px;
+        color: white;
+        text-decoration: none;
+        font-weight: 700;
+    }
+    
+    .navbar a {
+        font-size: 12px;
+        color: white;
+        font-weight: 500;
+        text-decoration: none;
+        margin-left: 4px;
+    } 
 }
