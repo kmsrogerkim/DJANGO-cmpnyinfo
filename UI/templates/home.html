@@ -15,7 +15,10 @@
             <div class="search-header">
               <img class="img" src="{%static 'UI/img/search.svg'%}" />
               <!-- <div class="text-wrapper">Search Company Name to Start</div> -->
+              <form method="post">
+              {%csrf_token%}
               <input type="text" name="cmpnyname" id="cmpnyname" placeholder="Search Company Name">
+              </form>
               <!-- <img class="img" src="{%static 'UI/img/x-circle.svg'%}" /> -->
               <!-- <div class="search-blinker"><img class="line" src="{%static 'UI/img/line-3.svg'%}" /></div> -->
             </div>
@@ -29,7 +32,7 @@
                   <a class= "text-wrapper-2" href="{%url 'home'%}">Home</a>
                 </li>
                 <li class= "div-wrapper">
-                    <a class= "text-wrapper-2" href="{%url 'home'%}">Sign-in</a>
+                    <a class= "text-wrapper-2" href="{%url 'sign_in'%}">Sign-in</a>
                 </li>
                 <li class= "div-wrapper">
                     <a class= "text-wrapper-2" href="{%url 'home'%}">About</a>
@@ -110,12 +113,10 @@
         <img class="line-2" src="{%static 'UI/img/line-4.svg'%}" />
         <img class="line-3" src="{%static 'UI/img/line-5.svg'%}" />
         <img class="line-4" src="{%static 'UI/img/line-6.svg'%}" />
-        <div class="e-mail-field">
-          <form method="post" class="text-wrapper-11">
-            <input type="text" name="email" id="email" placeholder="Enter e-mail here">
-          </form>
-        </div>
-        <button class="sign-up-button"><div class="text-wrapper-10">SIGN UP</div></button>
+        <form method="post">
+          {%csrf_token%}
+          <button class="sign-up-button" type="submit"><div class="text-wrapper-10">SIGN UP</div></button>
+        </form>
         <p class="text-wrapper-9">
           Currently, the website provides information for 100 companies listed in the KOSPI (Korean Stock Price Index).
         </p>
