@@ -1,0 +1,19 @@
+.home {
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .home .intro-box {
+    background-color: #726d6d;
+    position: relative;
+    top: 52px;
+    width: 100%;
+    height: 50%;
+    padding: 10px;
+    border: red;
+    border-radius: 20px;
+  }

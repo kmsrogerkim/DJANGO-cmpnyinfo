@@ -7,7 +7,7 @@ def home(request):
     if request.method == 'POST':
         if request.POST.get("cmpnyname"):
             cmpnyname = request.POST.get("cmpnyname")
-            return redirect("sign_up")
+            return redirect("cmpny", cmpnyname=cmpnyname)
         else:
             return redirect("sign_up")
     return render(request, "home.html")
@@ -40,3 +40,6 @@ def sign_in(request):
             return redirect("sign_in")
     else:
         return render(request, "sign_in.html")
+
+def cmpny(request, cmpnyname):
+    return render(request, "cmpny.html", {"cmpnyname":cmpnyname})
