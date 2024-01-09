@@ -2,6 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from .forms import RegisterForm
+import requests, json
 
 def home(request):
     if request.method == 'POST':
@@ -42,4 +43,12 @@ def sign_in(request):
         return render(request, "sign_in.html")
 
 def cmpny(request, cmpnyname):
+    cmpnyname = requests.get("http://localhost:8000/API/cmpnyname")
+    print("=" * 100)
+    print(type(cmpnyname))
+    print(cmpnyname.text)
+    print(cmpnyname.status_code)
+    cmpnyname = cmpnyname.json()
+    cmpnyname = cmpnyname['cmpnyname']
+
     return render(request, "cmpny.html", {"cmpnyname":cmpnyname})
