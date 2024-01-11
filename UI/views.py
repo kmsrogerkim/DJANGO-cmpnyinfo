@@ -41,12 +41,13 @@ def home(request):
 #         return render(request, "sign_in.html")
 
 def cmpny(request, cmpnyname):
-    cmpnyname = requests.get("http://localhost:8000/API/cmpnyname")
-    print("=" * 100)
-    print(type(cmpnyname))
-    print(cmpnyname.text)
-    print(cmpnyname.status_code)
-    cmpnyname = cmpnyname.json()
-    cmpnyname = cmpnyname['cmpnyname']
+    basic_info = requests.post("http://localhost:8000/API/basicInfo", data={"cmpnyname":cmpnyname})
+    if basic_info.status_code != 200:
+        return redirect("not_found.html")
+    basic_info = basic_info.json()
 
+    cmpnyname = basic_info['cmpnyname']
     return render(request, "cmpny.html", {"cmpnyname":cmpnyname})
+
+def not_found(request):
+    return render(request, "not_found.html")
