@@ -136,7 +136,7 @@ def GetReport(dart, corp_code: str, year: int) -> dict:
 
 @lib_one.Timer
 def main():
-    my_api = dart_my_api
+    my_api = dart_my_api #FROM THE API_KEYS FILE
     dart = OpenDartReader(my_api) #CREATING DART OBJECT 
 
     #GETTING THE LIST OF NAMES AND THEIR CORPORATE CODES IN THE KOSPI FROM THE pkl object make with the modul in the Data directory
