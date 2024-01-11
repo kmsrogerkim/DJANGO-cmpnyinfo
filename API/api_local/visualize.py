@@ -1,7 +1,6 @@
 from matplotlib import pyplot as plt
 from matplotlib import rcParams
 from tabulate import tabulate
-import seaborn as sns
 import pandas as pd
 
 def ShowStatusBoxPlot(data: pd.DataFrame, key: str):
