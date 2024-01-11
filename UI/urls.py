@@ -6,5 +6,5 @@ urlpatterns = [
 	path("notfound", views.not_found, name="not_found"),
 	# path("sign_up", views.sign_up, name="sign_up"),
 	# path("sign_in", views.sign_in, name="sign_in"),
-	path("<str:cmpnyname>", views.cmpny, name="cmpny"),
+	path("cmpny/<str:cmpnyname>", views.cmpny, name="cmpny"),
 ]

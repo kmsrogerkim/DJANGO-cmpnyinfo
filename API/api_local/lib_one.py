@@ -87,10 +87,10 @@ def GetPastStockPrice(sp_data, date: str):
                 date -= pd.to_timedelta(1, 'day')
         return value
     
-def GetHLStockPrice(sp_data, date: str) -> dict:
+def GetDetailStockPrice(sp_data, date: str) -> dict:
     '''
     Arguments: a dataframe object containing all the stock information of the company, the date
-    Returns: the high/low stock price closest from the past to the date given.
+    Returns: the high/low/close stock price closest from the past to the date given.
     '''
 
     #HAVE TO DO THIS CUZ THE sp_data returns Date as default index. So changing it back to column
@@ -109,6 +109,7 @@ def GetHLStockPrice(sp_data, date: str) -> dict:
                 sp_data = sp_data[sp_data['Date'] == date]
                 value["Low"] = sp_data['Low'].iloc[0]
                 value["High"] = sp_data['High'].iloc[0]
+                value["Close"] = sp_data['Close'].iloc[0]
                 break
             else:
                 date -= pd.to_timedelta(1, 'day')

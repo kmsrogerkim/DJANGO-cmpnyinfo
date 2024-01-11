@@ -6,9 +6,8 @@ import requests, json
 
 def home(request):
     if request.method == 'POST':
-        if request.POST.get("cmpnyname"):
-            cmpnyname = request.POST.get("cmpnyname")
-            return redirect("cmpny", cmpnyname=cmpnyname)
+        cmpnyname = request.POST.get("cmpnyname")
+        return redirect("cmpny", cmpnyname=cmpnyname)
     return render(request, "home.html")
 
 # def sign_up(request):
