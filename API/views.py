@@ -1,5 +1,6 @@
-from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
 
 from .api_local import cmpny_data
 
@@ -14,14 +15,14 @@ with open(file_path, 'rb') as f:
 def get_basic_info(request):
     post_data = request.data #dict
     cmpnyname = post_data["cmpnyname"]
-    cmpnycode = name_code[cmpnyname]
+    try:
+        cmpnycode = name_code[cmpnyname]
+    except KeyError:
+        return Response({"error": "Bad Request: cmpnyname not in list"}, status=status.HTTP_400_BAD_REQUEST)
+    
     print("~" * 100)
     print(cmpnyname)
 
     basic_info = cmpny_data.get_stock_info(cmpnycode)
-    print("=" * 100)
-    print(basic_info)
-    print("=" * 100)
-
-    cmpnyname = {"cmpnyname":cmpnyname}
-    return Response(cmpnyname)
+    basic_info["cmpnyname"] = cmpnyname
+    return Response(basic_info)

@@ -42,11 +42,9 @@ def home(request):
 def cmpny(request, cmpnyname):
     basic_info = requests.post("http://localhost:8000/API/basicInfo", data={"cmpnyname":cmpnyname})
     if basic_info.status_code != 200:
-        return redirect("not_found.html")
-    basic_info = basic_info.json()
-
-    cmpnyname = basic_info['cmpnyname']
-    return render(request, "cmpny.html", {"cmpnyname":cmpnyname})
+        return redirect("not_found")
+    basic_info = basic_info.json() #dict
+    return render(request, "cmpny.html", {"basic_info":basic_info})
 
 def not_found(request):
     return render(request, "not_found.html")
