@@ -3,6 +3,10 @@ from django.contrib.auth.models import User
 from django import forms
 
 class RegisterForm(UserCreationForm):
+	'''
+	NOT IN USE!!
+	Register feature for future.
+	'''
 	email = forms.EmailField(label="", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Email Address'}))
 	class Meta:
 		model = User
