@@ -7,7 +7,7 @@ import FinanceDataReader as fdr
 from tabulate import tabulate
 import OpenDartReader
 import pandas as pd
-import pickle
+import pickle, os
 
 def GetIncreaseRate(BasicInfo):
     '''
@@ -139,8 +139,11 @@ def main():
     my_api = dart_my_api #FROM THE API_KEYS FILE
     dart = OpenDartReader(my_api) #CREATING DART OBJECT 
 
+    #GETTING THE FILE PATH RELATIVE TO THE ROOT DIR
+    file_path = os.path.join(os.getcwd(), 'API', 'api_local', 'Data', 'name_code.pkl')
+
     #GETTING THE LIST OF NAMES AND THEIR CORPORATE CODES IN THE KOSPI FROM THE pkl object make with the modul in the Data directory
-    with open('../Invest/Data/name_code.pkl', 'rb') as f:
+    with open(file_path, 'rb') as f:
         name_code = pickle.load(f)
 
     company_name = "삼성전자"
@@ -185,9 +188,12 @@ def main():
     GetRatios(BasicInfo)
     GetProfitStatus(BasicInfo)
 
+    #CREATING FILE PATH FOR SAVING THE CSV TABLE    
+    save_file_path = os.path.join(os.getcwd(), 'API', 'api_local', 'Data', f'{company_name}_basic_info.csv')
+
     #CONVERTING IT TO DF THEN SAVING IT
     BasicInfo = pd.DataFrame(BasicInfo)
-    BasicInfo.to_csv(f"../Invest/Data/{company_name}_basic_info.csv", encoding='euc-kr', index=False)
+    BasicInfo.to_csv(save_file_path, encoding='euc-kr', index=False)
 
 if __name__ == "__main__":
     main()

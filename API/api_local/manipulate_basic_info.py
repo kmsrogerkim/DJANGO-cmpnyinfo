@@ -2,7 +2,7 @@ import FinanceDataReader as fdr
 from tabulate import tabulate
 import pandas as pd
 import lib_one
-import pickle
+import pickle, os
 
 def GetStockPrices(sp_data: pd.DataFrame, years: list) -> pd.DataFrame:
     '''
@@ -29,12 +29,16 @@ def GetStockPrices(sp_data: pd.DataFrame, years: list) -> pd.DataFrame:
     return pd.DataFrame(dict_stock_data)
     
 def main():
-    with open('../Invest/Data/name_code.pkl', 'rb') as f:
+    #GETTING THE FILE PATH RELATIVE TO THE ROOT DIR
+    file_path = os.path.join(os.getcwd(), 'API', 'api_local', 'Data', 'name_code.pkl')
+
+    with open(file_path, 'rb') as f:
         name_code = pickle.load(f)
 
     company_name = "삼성전자"
 
-    BasicInfo = pd.read_csv(f"../Invest/Data/{company_name}_basic_info.csv", encoding="euc-kr")
+    file_path = os.path.join(os.getcwd(), 'API', 'api_local', 'Data', f'{company_name}_basic_info.csv')
+    BasicInfo = pd.read_csv(file_path, encoding="euc-kr")
     BasicInfo.drop(['Total_Assets', 'Total_Debt', 'Total_Equity', 'Revenue', 'Operating_Income(added)', 'Net_Income(added)',], axis=1, inplace=True) #DELETING DATA THAT'S NOT GONNA BE USED
 
     sp_data = fdr.DataReader(name_code[company_name], "2017-12-01", lib_one.GetDateToday()) #GETTING A DATAFRAME OF THE STOCKPRICES OF THE CORP_CODE CORPORATION
@@ -46,7 +50,8 @@ def main():
     BasicInfo = pd.merge(left=BasicInfo, right=stock_prices, on="Year", how="outer") #ADDING THE STOCKPRICES DF TO THE BASICINFO DF
 
     #SAVING IT
-    BasicInfo.to_csv(f"../Invest/Data/{company_name}_basic_info_for_analysis.csv", encoding='euc-kr', index=False)
+    file_path = os.path.join(os.getcwd(), 'API', 'api_local', 'Data', f'{company_name}_basic_info_for_analysis.csv')
+    BasicInfo.to_csv(file_path, encoding='euc-kr', index=False)
 
 if __name__ == "__main__":
     main()
