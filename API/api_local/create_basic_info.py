@@ -140,10 +140,7 @@ def CreateCmpnyBF(BasicInfo: dict, name_code: dict, company_name: str, year_list
     '''
     BasicInfo['Company_Name'] += [company_name] * 6
     BasicInfo["Year"] += lib_one.GetSixYearsList(year=year_list[1])
-    count = 6
     for years in year_list:
-        error = False
-        print(company_name, years)
         try:
             #HAS TO RUN TWICE BECAUSE EACH API CAN ONLY CALL DATA FROM UP TO 3 YEARS AGO
             GetFinState(dart, BasicInfo, name_code[company_name], year=years)
@@ -151,20 +148,17 @@ def CreateCmpnyBF(BasicInfo: dict, name_code: dict, company_name: str, year_list
             BasicInfo['EPS'] += finReport['EPS']
             BasicInfo['PER'] += finReport['PER']
         except Exception as e:
-            error = True
             print(e)
-            start_index = len(BasicInfo["Company_Name"])-count
+            start_index = len(BasicInfo["Company_Name"])-6
             for key, value in BasicInfo.items():
                 if key != "Company_Name" and key != "Year":
-                    BasicInfo[key][start_index:start_index+3] = [np.nan] * 3
-        finally:
-            count -= 3
+                    BasicInfo[key][start_index:start_index+6] = [np.nan] * 6
+            return 0
 
-    if error == False:
-        #COMPLETING THE BasicInfo DICT FOR THOSE DATA THAT CAN BE RAN 6 TIMES
-        GetIncreaseRate(BasicInfo)
-        GetRatios(BasicInfo)
-        GetProfitStatus(BasicInfo)
+    #COMPLETING THE BasicInfo DICT FOR THOSE DATA THAT CAN BE RAN 6 TIMES
+    GetIncreaseRate(BasicInfo)
+    GetRatios(BasicInfo)
+    GetProfitStatus(BasicInfo)
 
 def main():
     my_api = dart_my_api #FROM THE API_KEYS FILE
@@ -204,7 +198,7 @@ def main():
     }
 
     company_names = list(name_code.keys())
-    for i in tqdm(range(69, len(company_names))):
+    for i in tqdm(range(len(company_names))):
         try:
             for key, value in BasicInfo.items():
                 if (len(value)) != len(BasicInfo["Company_Name"]):
@@ -212,10 +206,10 @@ def main():
             CreateCmpnyBF(BasicInfo, name_code, company_names[i], year_list, dart)
         except Exception as e:
             print(e)
-            index = len(BasicInfo["Company_Name"]) - 5
+            start_index = len(BasicInfo["Company_Name"]) - 6
             for key, value in BasicInfo.items():
                 if key != "Company_Name" and key != "Year":
-                    value[index:index+6] = [np.nan] * 6
+                    value[start_index:start_index+6] = [np.nan] * 6
 
     #CREATING FILE PATH FOR SAVING THE CSV TABLE    
     save_file_path = os.path.join(os.getcwd(), 'API', 'api_local', 'Data', 'basic_info.csv')
