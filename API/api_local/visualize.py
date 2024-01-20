@@ -2,6 +2,7 @@ from matplotlib import pyplot as plt
 from matplotlib import rcParams
 from tabulate import tabulate
 import pandas as pd
+import os
 
 def ShowStatusBoxPlot(data: pd.DataFrame, key: str):
     plt.figure(figsize = (10, 6))
@@ -20,9 +21,11 @@ def ShowStatusBoxPlot(data: pd.DataFrame, key: str):
 
 def main():
     company_name = "삼성전자"
+    
+    file_path = os.path.join(os.getcwd(), 'API', 'api_local', 'Data', f'{company_name}_basic_info_for_analysis.csv')
 
     cols = ["Company_Name", "Year", "Current_Stock", "Future_Stock", "Operating_Income(added)_Profit_Status","Net_Income(added)_Profit_Status" ]
-    data = pd.read_csv(f"./Data/{company_name}_basic_info_for_analysis.csv", usecols=cols, encoding="euc-kr")
+    data = pd.read_csv(file_path, usecols=cols, encoding="euc-kr")
     data.dropna(inplace=True)
 
     data["Profit"] = (data["Current_Stock"] - data["Future_Stock"]) / data["Current_Stock"] * 100

@@ -1,13 +1,15 @@
 #THIS 'API_KEYS' IS A PYTHON FILE OF MINE THAT SOTERS MY PRIVATE API KEYS.
 from API_KEYS import * #SO DELETE THIS LINE!!!!!
 
-import lib_one
+import lib_one, custom_exceptions
 
+from tqdm import tqdm
 import FinanceDataReader as fdr
 from tabulate import tabulate
 import OpenDartReader
 import pandas as pd
-import pickle
+import numpy as np
+import pickle, os
 
 def GetIncreaseRate(BasicInfo):
     '''
@@ -17,7 +19,6 @@ def GetIncreaseRate(BasicInfo):
     triger = False
     for key in BasicInfo:
         if key == "Revenue_Increase_Rate" or triger:
-            #WHEN THE ITERATION REACHES THE Revenue_Increase_Rate
             triger = True
             BasicInfo[key].append(0)
             for i in range(1, 6):
@@ -67,10 +68,13 @@ def GetNumbers(finstate, BasicInfo: dict) -> dict:
     e_keyword_list = [items for items in BasicInfo.keys()][2:8] 
     #GETTING EACH DATA AND APPENDING TO THE BASICINFO DICT
     for i in range(6):
-        temp = finstate.loc[(finstate["account_nm"] == k_keyword_list[i]) & (finstate["fs_nm"] == '재무제표')]    
-        temp_number = temp[['bfefrmtrm_amount', 'frmtrm_amount', 'thstrm_amount']]
-        for col_name, col_item in temp_number.items():
-            BasicInfo[e_keyword_list[i]].append(col_item.str.replace(",","").astype(float).values[0])
+        temp = finstate.loc[(finstate["account_nm"] == k_keyword_list[i]) & (finstate["fs_nm"] == '재무제표')] 
+        if temp.empty:
+            BasicInfo[e_keyword_list[i]] += [np.nan]*3
+        else:
+            temp_number = temp[['bfefrmtrm_amount', 'frmtrm_amount', 'thstrm_amount']]
+            for col_name, col_item in temp_number.items():
+                BasicInfo[e_keyword_list[i]].append(col_item.str.replace(",","").astype(float).values[0])
 
 def GetRatios(BasicInfo):
     '''
@@ -82,25 +86,21 @@ def GetRatios(BasicInfo):
         BasicInfo["ROA"].append(round(100 * BasicInfo["Net_Income(added)"][i] / BasicInfo['Total_Assets'][i], 2))
         BasicInfo["ROE"].append(round(100 * BasicInfo["Net_Income(added)"][i] / BasicInfo['Total_Equity'][i], 2))
 
-@lib_one.Timer
-def GetFinState(dart, BasicInfo, corp_code: str, year: int) -> dict:
+def GetFinState(dart, BasicInfo, corp_code: str, year: str) -> dict:
     '''
     Arguments: OpenDartReader API object, BasicInfo, corp_code, the year.
     Returns, a dictionary object containing all the objects.
     '''
-    finstate = dart.finstate(corp_code, year, "11011") #RETURNS A DATAFRAME OBJECT THAT IS THE FINANCIAL STATEMENT OF THE COMPAN; BECAUSE OF "11011", IT RETURNS 사업보고서
-
-    #GETTING THE YEARS
-    temp = finstate.loc[(finstate["account_nm"] == "자산총계") & (finstate["fs_nm"] == '재무제표')]
-    temp_date = temp[["bfefrmtrm_dt", 'frmtrm_dt', 'thstrm_dt']] #당기, 전기, 전전기
-    for col_name, col_item in temp_date.items():
-        BasicInfo["Year"].append(str(col_item)[6:10]) #GETTING ONLY THE '2022' PART FROM THE ENTIRE DATE
-    
+    try:
+        finstate = dart.finstate(corp_code, year, "11011") #RETURNS A DATAFRAME OBJECT THAT IS THE FINANCIAL STATEMENT OF THE COMPAN; BECAUSE OF "11011", IT RETURNS 사업보고서
+    except:
+        #If the company is younger than 6 years
+        raise custom_exceptions.YoungCmpny(corp_code=corp_code, end_year=year)
+        
     GetNumbers(finstate, BasicInfo) #GETS ALL THE VALUE FROM Total_Assets to Net_Income(added)
 
     return BasicInfo
 
-@lib_one.Timer
 def GetReport(dart, corp_code: str, year: int) -> dict:
     '''
     Arguments: OpenDartReader API object, corp_code, year
@@ -134,16 +134,42 @@ def GetReport(dart, corp_code: str, year: int) -> dict:
 
     return key_info
 
-@lib_one.Timer
+def CreateCmpnyBF(BasicInfo: dict, name_code: dict, company_name: str, year_list: list, dart):
+    '''
+    Returns: Nothing. Modifies BasicInfo for each compnay
+    '''
+    BasicInfo['Company_Name'] += [company_name] * 6
+    BasicInfo["Year"] += lib_one.GetSixYearsList(year=year_list[1])
+    for years in year_list:
+        try:
+            #HAS TO RUN TWICE BECAUSE EACH API CAN ONLY CALL DATA FROM UP TO 3 YEARS AGO
+            GetFinState(dart, BasicInfo, name_code[company_name], year=years)
+            finReport = GetReport(dart, name_code[company_name], years)
+            BasicInfo['EPS'] += finReport['EPS']
+            BasicInfo['PER'] += finReport['PER']
+        except Exception as e:
+            print(e)
+            start_index = len(BasicInfo["Company_Name"])-6
+            for key, value in BasicInfo.items():
+                if key != "Company_Name" and key != "Year":
+                    BasicInfo[key][start_index:start_index+6] = [np.nan] * 6
+            return 0
+
+    #COMPLETING THE BasicInfo DICT FOR THOSE DATA THAT CAN BE RAN 6 TIMES
+    GetIncreaseRate(BasicInfo)
+    GetRatios(BasicInfo)
+    GetProfitStatus(BasicInfo)
+
 def main():
     my_api = dart_my_api #FROM THE API_KEYS FILE
     dart = OpenDartReader(my_api) #CREATING DART OBJECT 
 
-    #GETTING THE LIST OF NAMES AND THEIR CORPORATE CODES IN THE KOSPI FROM THE pkl object make with the modul in the Data directory
-    with open('../Invest/Data/name_code.pkl', 'rb') as f:
-        name_code = pickle.load(f)
+    #GETTING THE FILE PATH RELATIVE TO THE ROOT DIR
+    file_path = os.path.join(os.getcwd(), 'API', 'api_local', 'Data', 'name_code.pkl')
 
-    company_name = "삼성전자"
+    #GETTING THE LIST OF NAMES AND THEIR CORPORATE CODES IN THE KOSPI FROM THE pkl object make with the modul in the Data directory
+    with open(file_path, 'rb') as f:
+        name_code = pickle.load(f)
 
     year = "2022"
     year_list = [(pd.to_datetime(year) - pd.DateOffset(years=3)).strftime('%Y')] + [year]
@@ -171,23 +197,26 @@ def main():
         'PER':[]
     }
 
-    BasicInfo['Company_Name'] += [company_name] * 6
-    for years in year_list:
-        #HAS TO RUN TWICE BECAUSE EACH API CAN ONLY CALL DATA FROM UP TO 3 YEARS AGO
-        GetFinState(dart, BasicInfo, name_code[company_name], year=years)
+    company_names = list(name_code.keys())
+    for i in tqdm(range(len(company_names))):
+        try:
+            for key, value in BasicInfo.items():
+                if (len(value)) != len(BasicInfo["Company_Name"]):
+                    print("a")
+            CreateCmpnyBF(BasicInfo, name_code, company_names[i], year_list, dart)
+        except Exception as e:
+            print(e)
+            start_index = len(BasicInfo["Company_Name"]) - 6
+            for key, value in BasicInfo.items():
+                if key != "Company_Name" and key != "Year":
+                    value[start_index:start_index+6] = [np.nan] * 6
 
-        finReport = GetReport(dart, name_code[company_name], years)
-        BasicInfo['EPS'] += finReport['EPS']
-        BasicInfo['PER'] += finReport['PER']
-
-    #COMPLETING THE BasicInfo DICT FOR THOSE DATA THAT CAN BE RAN 6 TIMES
-    GetIncreaseRate(BasicInfo)
-    GetRatios(BasicInfo)
-    GetProfitStatus(BasicInfo)
+    #CREATING FILE PATH FOR SAVING THE CSV TABLE    
+    save_file_path = os.path.join(os.getcwd(), 'API', 'api_local', 'Data', 'basic_info.csv')
 
     #CONVERTING IT TO DF THEN SAVING IT
     BasicInfo = pd.DataFrame(BasicInfo)
-    BasicInfo.to_csv(f"../Invest/Data/{company_name}_basic_info.csv", encoding='euc-kr', index=False)
+    BasicInfo.to_csv(save_file_path, encoding='euc-kr', index=False)
 
 if __name__ == "__main__":
     main()

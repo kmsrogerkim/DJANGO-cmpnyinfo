@@ -5,7 +5,7 @@ import pandas as pd
 
 def get_stock_info(cmpnycode: str) -> dict:
     '''
-    Returns: 1. yesterday's stock info 2. high/low in 52 weeks
+    Returns: yesterday's stock info; high/low in 52 weeks
     '''
     today = lib_one.GetDateToday()
     start_date = today - pd.to_timedelta(364, 'D') #52 weeks prior
@@ -24,6 +24,9 @@ def get_stock_info(cmpnycode: str) -> dict:
     return ans
 
 def get_hl(sp_data: pd.DataFrame) -> dict:
+    '''
+    Returns: the highest and lowest stock price in the sp_data
+    '''
     stock_prices = sp_data["Close"]
     stock_prices = stock_prices.sort_values(ascending=False)
 

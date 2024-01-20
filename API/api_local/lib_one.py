@@ -3,17 +3,14 @@ from datetime import date
 import pandas as pd
 import time
 
+import custom_exceptions
+
 '''
 11013: 1분기
 11012: 반기
 11014: 3분기
 11011: 사업보고서
 '''
-
-class StockPriceError(Exception):
-    def __init__(self, message, value):
-        self.message = message
-        self.value = value
     
 def Timer(func):
     def Wrapper(*args, **kwargs):
@@ -38,6 +35,16 @@ def GetDateToday():
 def GetLastWeek(today: pd.Timestamp) -> pd.Timestamp:
     return (today - pd.to_timedelta(7, 'D'))
 
+def GetSixYearsList(year: str):
+    '''
+    Returns: Nothing. Adds the appropriate six years to the BasicInfo dict for each cmpny.
+    '''
+    year = int(year)
+    year_list = []
+    for i in range(year-5, year+1):
+        year_list.append(str(i))
+    return year_list
+
 def GetFutureStockPrice(sp_data, date):
     '''
     Arguments: a dataframe object containing all the stock information of the company, the date
@@ -51,7 +58,7 @@ def GetFutureStockPrice(sp_data, date):
 
     if sp_data['Date'].max() < date or sp_data['Date'].min() > date:
         #If the there isn't any stock value equivalent
-        raise StockPriceError("Given date not in the dataframe 'sp_data'", date)
+        raise custom_exceptions.StockPriceError("Given date not in the dataframe 'sp_data'", date)
     else:
         while True:
             if sum(sp_data['Date'] == date) > 0:
@@ -76,7 +83,7 @@ def GetPastStockPrice(sp_data, date: str):
 
     if sp_data['Date'].max() < date or sp_data['Date'].min() > date:
         #If the there isn't any stock value equivalent
-        raise StockPriceError("Given date not in the dataframe 'sp_data'", date)
+        raise custom_exceptions.StockPriceError("Given date not in the dataframe 'sp_data'", date)
     else:
         while True:
             if sum(sp_data['Date'] == date) > 0:
@@ -102,7 +109,7 @@ def GetDetailStockPrice(sp_data, date: str) -> dict:
 
     if sp_data['Date'].max() < date or sp_data['Date'].min() > date:
         #If the there isn't any stock value equivalent
-        raise StockPriceError("Given date not in the dataframe 'sp_data'", date)
+        raise custom_exceptions.StockPriceError("Given date not in the dataframe 'sp_data'", date)
     else:
         while True:
             if sum(sp_data['Date'] == date) > 0:
