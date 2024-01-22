@@ -21,9 +21,7 @@ def cmpny(request, cmpnyname):
     if finstate_sum.status_code != 200:
         return redirect("not_found")
     finstate_sum = finstate_sum.json() #dict
-    print(finstate_sum)
     keys = list(finstate_sum[0].keys())
-    print(keys)
 
     return render(request, "cmpny.html", {"basic_info":basic_info, "finstate_sum":finstate_sum, "keys":keys})
 
