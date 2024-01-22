@@ -28,12 +28,33 @@
             <div class="intro-box">
                 <h1 class="title">{{cmpnyname}} 재무제표 요약표</h1>
                 <div class="info-box">
-                    <a class="info-item">Market Cap: {{cmpnyname}}</a>
-                    <a class="info-item">Stock(Yesterday): {{cmpnyname}}</a>
-                    <a class="info-item">High: {{cmpnyname}}</a>
-                    <a class="info-item">Low: {{cmpnyname}}</a>
-                    <a class="info-item">Highest-52wks: {{cmpnyname}}</a>
-                    <a class="info-item">Lowest-52wks: {{cmpnyname}}</a>
+                    <table>
+                        <tr>
+                            <th>Company_Name</th>
+                            <th>Year</th>
+                            <th>Total_Assets</th>
+                            <th>Total_Debt</th>
+                            <th>Total_Equity</th>
+                            <th>Revenue</th>
+                            <th>Operating_Income(added)</th>
+                            <th>Net_Income(added)</th>
+                            <th>Revenue_Increase_Rate</th>
+                            <th>Operating_Income(added)_Increase_Rate</th>
+                            <th>Net_Income(added)_Increase_Rate</th>
+                            <th>Debt_Equity_Ratio</th>
+                            <th>ROA</th>
+                            <th>ROE</th>
+                            <th>EPS</th>
+                            <th>PER</th>
+                        </tr>
+                        {% for dicts in finstate_sum %}
+                        <tr>
+                            {% for key,value in dicts.items %}
+                                <td>{{ value }}</td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </table>
                 </div>
             </div>
             <div class="intro-box">
