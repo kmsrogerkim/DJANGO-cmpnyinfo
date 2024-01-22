@@ -33,5 +33,3 @@ def get_hl(sp_data: pd.DataFrame) -> dict:
     high = stock_prices.iloc[0]
     low = stock_prices.tail(1).iloc[0]
     return high, low
-
-print(get_stock_info("005930"))
