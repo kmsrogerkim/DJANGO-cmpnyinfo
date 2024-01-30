@@ -60,12 +60,7 @@
             <div class="intro-box">
                 <h1 class="title">Graphs Here</h1>
                 <div class="info-box">
-                    <a class="info-item">Market Cap: {{cmpnyname}}</a>
-                    <a class="info-item">Stock(Yesterday): {{cmpnyname}}</a>
-                    <a class="info-item">High: {{cmpnyname}}</a>
-                    <a class="info-item">Low: {{cmpnyname}}</a>
-                    <a class="info-item">Highest-52wks: {{cmpnyname}}</a>
-                    <a class="info-item">Lowest-52wks: {{cmpnyname}}</a>
+                    {{ graph|safe }}
                 </div>
             </div>
         </div>

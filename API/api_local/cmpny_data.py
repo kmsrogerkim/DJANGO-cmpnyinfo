@@ -1,7 +1,20 @@
+'''
+This file works as a connecting bridge between the server layer and this(local) layer of the API function.
+It is equivalent of the 'lib_one.py' file, but for the server layer(django's views.py file)
+The 'lib_one.py' file is exclusivly used by/for the local_api layer.
+'''
 from .import lib_one
 
+from rest_framework.response import Response
+from rest_framework import status
+
+from . import custom_exceptions
+
 import FinanceDataReader as fdr
+from tabulate import tabulate
 import pandas as pd
+import pandas as pd
+import numpy as np
 
 def get_stock_info(cmpnycode: str) -> dict:
     '''
@@ -33,3 +46,11 @@ def get_hl(sp_data: pd.DataFrame) -> dict:
     high = stock_prices.iloc[0]
     low = stock_prices.tail(1).iloc[0]
     return high, low
+
+def get_cmpny_df(basic_info_csv: pd.DataFrame, cmpnyname: str):
+    #If there is no data for the company
+    df = basic_info_csv[basic_info_csv["Company_Name"] == cmpnyname]
+    if df["Operating_Income(added)_Profit_Status"].iloc[0] == np.nan:
+        print("~" * 100)
+        raise custom_exceptions.YoungCmpny
+    return df

@@ -17,6 +17,10 @@ with open(file_path, 'rb') as f:
 #Getting basic_info.csv
 file_path = os.path.join(os.getcwd(), 'API', 'api_local', 'Data', 'basic_info.csv') 
 basic_info_csv = pd.read_csv(file_path, encoding='euc-kr')
+#Getting basic_info_for_analysis.csv
+file_path = os.path.join(os.getcwd(), 'API', 'api_local', 'Data', 'basic_info_for_analysis.csv') 
+cols = ["Company_Name", "Year", "Current_Stock", "Future_Stock", "Operating_Income(added)_Profit_Status","Net_Income(added)_Profit_Status" ]
+bf_analysis_csv = pd.read_csv(file_path, usecols=cols, encoding='euc-kr')
 
 @api_view(['POST'])
 def get_basic_info(request):
@@ -33,26 +37,39 @@ def get_basic_info(request):
 
     basic_info = cmpny_data.get_stock_info(cmpnycode) #dict
     basic_info["cmpnyname"] = cmpnyname #setting the company name to the posted company name
-
     return Response(basic_info)
 
 @api_view(['POST'])
 def get_finstate_sum(request):
     post_data = request.data #dict
     cmpnyname = post_data["cmpnyname"]
+
     try:
-        df = basic_info_csv[basic_info_csv["Company_Name"] == cmpnyname]
-        if df["Total_Assets"].iloc[0] == np.nan:
-            print("~" * 100)
-            raise custom_exceptions.YoungCmpny
+        df = cmpny_data.get_cmpny_df(basic_info_csv, cmpnyname)
     except Exception as e:
         print(e)
         return Response({"error": "Bad Request: YoungCmpny"}, status=status.HTTP_400_BAD_REQUEST)
-
     #Dropping unnecessary infos
     df.drop(["Revenue_Profit_Status", "Operating_Income(added)_Profit_Status", "Net_Income(added)_Profit_Status"], axis=1, inplace=True)
 
     #Convert df to dict
     finstate_sum = df.to_dict(orient="records")
+    return Response(finstate_sum)
 
+@api_view(['POST'])
+def get_graph_data(request):
+    post_data = request.data #dict
+    cmpnyname = post_data["cmpnyname"]
+
+    try:
+        df = cmpny_data.get_cmpny_df(bf_analysis_csv, cmpnyname)
+    except Exception as e:
+        print(e)
+        return Response({"error": "Bad Request: YoungCmpny"}, status=status.HTTP_400_BAD_REQUEST)
+    
+    if "Profit" not in df:
+        df["Profit"] = (df["Current_Stock"] - df["Future_Stock"]) / df["Current_Stock"] * 100
+    
+    #Convert df to dict
+    finstate_sum = df.to_dict(orient="records")
     return Response(finstate_sum)
