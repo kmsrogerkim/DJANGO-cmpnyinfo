@@ -42,19 +42,6 @@
     align-self: center;
   }
   
-  /*For the last box*/
-  .home .graph-box {
-    background-color: white;
-    position: relative;
-    top: 52px;
-    width: 96%;
-    height: 25%;
-    margin: 10px;
-    margin-top: 20px;
-    border: 1px solid grey;
-    box-shadow: 5px 10px 15px;
-  }
-  
   .home .table-box {
     background-color: white;
     margin-top: 25px;
@@ -63,9 +50,31 @@
     overflow-x: auto;
     font-family: sans-serif;
   }
-
+  
   table {
     height: 95%;
+  }
+  
+  .home .graph-box {
+    background-color: white;
+    position: relative;
+    top: 52px;
+    width: 96%;
+    height: 500px;
+    margin: 10px;
+    margin-top: 20px;
+    border: 1px solid grey;
+    box-shadow: 5px 10px 15px;
+  }
+
+  .home .graph-box .graph {
+    background-color: green;
+    margin-top: 25px;
+    margin-left: 10px;
+    height: 80%;
+    overflow-x: auto;
+    overflow-y: auto;
+    font-family: sans-serif;
   }
 
   th {

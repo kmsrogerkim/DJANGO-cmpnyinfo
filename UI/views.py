@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 
 from tabulate import tabulate
 import plotly.express as px
+import plotly.graph_objects as go
 import pandas as pd
 import requests, json
 
@@ -38,17 +39,14 @@ def cmpny(request, cmpnyname):
         if value.empty:
             graph_val.append([0])
         else:
-            graph_val.append(value["Profit"])    
+            graph_val.append(list(value["Profit"]))    
 
-    print(type(graph_val))
+    print(type(graph_val[0]))
     print(graph_val)
     # Create a box plot using Plotly Express
-    fig = px.box(graph_val, labels=labels)
-    fig.update_yaxes(range=[-100, 100])
-    fig.update_layout(
-        xaxis=dict(tickmode='array', tickvals=[1, 2, 3, 4], ticktext=labels),
-        yaxis_title="Profit"
-    )
+    fig = go.Figure()
+    for i in range(4):
+        fig.add_trace(go.Box(y=graph_val[i], name=labels[i]))
     graph = fig.to_html()
 
     return render(request, "cmpny.html", {"basic_info":basic_info, "finstate_sum":finstate_sum, "keys":keys, "graph":graph})
