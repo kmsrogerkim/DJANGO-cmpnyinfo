@@ -27,21 +27,25 @@ def GetIncreaseRate(BasicInfo):
         if key == "Net_Income(added)_Increase_Rate":
             break
 
-def GetProfitStatus(BasicInfo):
+def GetProfitStatus(BasicInfo: dict):
     '''
     Arguments: the BasicInfor dict
     Returns: NOTHING. Only modifies the dict and completes the Profit Status columns
     '''
+    start_index = len(BasicInfo["Revenue_Profit_Status"])
     triger = False
     for keys in BasicInfo:
         if keys == "Revenue_Profit_Status" or triger:
             triger = True
-            if BasicInfo[keys.replace("_Profit_Status", '')][0] > 0:
+            #Initializing status for the first year.
+            if BasicInfo[keys.replace("_Profit_Status", '')][start_index] > 0:
                 status = "P"
             else:
                 status = "L"
             BasicInfo[keys].append(status)
-            for i in range(1, 6):
+
+            #Finishing the other five years
+            for i in range(start_index + 1, start_index + 6):
                 if BasicInfo[keys.replace("_Profit_Status", '')][i] > 0:
                     status = "P"
                     if BasicInfo[keys.replace("_Profit_Status", '')][i-1] > 0:
@@ -50,13 +54,13 @@ def GetProfitStatus(BasicInfo):
                         status += "_Turned"
                 else:
                     status = "L"
-                    if BasicInfo[keys.replace("_Profit_Status", '')][i-1] > 0:
+                    if BasicInfo[keys.replace("_Profit_Status", '')][i-1] < 0:
                         status += "_Contd"
                     else:
                         status += "_Turned"
                 BasicInfo[keys].append(status)
-            if keys == "Net_Income(added)_Profit_Status":
-                break
+        if keys == "Net_Income(added)_Profit_Status":
+            break
 
 def GetNumbers(finstate, BasicInfo: dict) -> dict:
     '''

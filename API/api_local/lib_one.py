@@ -3,7 +3,7 @@ from datetime import date
 import pandas as pd
 import time
 
-from . import custom_exceptions
+import custom_exceptions
 
 '''
 11013: 1분기
