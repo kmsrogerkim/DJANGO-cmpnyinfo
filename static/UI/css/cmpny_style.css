@@ -9,7 +9,7 @@
     position: relative;
     top: 52px;
     width: 96%;
-    height: 25%;
+    height: 30%;
     margin: 10px;
     margin-top: 20px;
     border: 1px solid grey;
@@ -28,7 +28,7 @@
   /*For the first box*/
   .home .info-box {
     position: relative;
-    top: 25px;
+    top: 20px;
     margin-left: 10px;
     height: 80%;
     display: grid;
@@ -36,21 +36,53 @@
   }
 
   .home .info-item {
-    font-family: "Roboto-ThinItalic", Helvetica;
-    font-size: 12px;
+    font-family: sans-serif;
+    font-size: 16px;
     color: black;
     align-self: center;
   }
-
-  /*For the last box*/
+  
+  .home .table-box {
+    background-color: white;
+    margin-top: 25px;
+    margin-left: 10px;
+    height: 75%;
+    overflow-x: auto;
+    font-family: sans-serif;
+  }
+  
+  table {
+    height: 95%;
+  }
+  
   .home .graph-box {
     background-color: white;
     position: relative;
     top: 52px;
     width: 96%;
-    height: 25%;
+    height: 500px;
     margin: 10px;
     margin-top: 20px;
     border: 1px solid grey;
     box-shadow: 5px 10px 15px;
+  }
+
+  .home .graph-box .graph {
+    background-color: green;
+    margin-top: 25px;
+    margin-left: 10px;
+    height: 80%;
+    overflow-x: auto;
+    overflow-y: auto;
+    font-family: sans-serif;
+  }
+
+  th {
+    font-size: 14px;
+    padding-right: 1rem;
+    text-align: left;
+  }
+  td {
+    font-size: 12px;
+    padding-right: 1rem;
   }
