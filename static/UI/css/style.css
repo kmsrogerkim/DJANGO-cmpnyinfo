@@ -13,45 +13,10 @@
     height: 100%;
     position: relative;
   }
-  
-  .home .frame {
-    display: flex;
-    flex-direction: column;
-    width: 370px;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 10px;
-    position: absolute;
-    top: 66px;
-    left: 12px;
-    background-color: #c1c1c1;
-    border-radius: 10px;
-  }
-  
-  .home .search-header {
-    display: flex;
-    width: 356px;
-    align-items: center;
-    gap: 10px;
-    position: relative;
-    flex: 0 0 auto;
-    margin-right: -6px;
-  }
-
-  .home .search-header input {
-    background: transparent;
-    border: 0;
-  }
 
   #cmpnyname {
     background: transparent;
     border: 0;
-  }
-  
-  .home .img {
-    position: relative;
-    width: 16px;
-    height: 16px;
   }
   
   .home .text-wrapper {
