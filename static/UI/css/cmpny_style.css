@@ -53,27 +53,46 @@
   
   table {
     height: 95%;
+    width: 200%;
+    border-collapse: separate !important;
   }
   
+  th {
+    font-size: 14px;
+    text-align: left;
+    padding-right: 1rem !important;
+    padding-bottom: 0.3rem !important;
+  }
+  td {
+    font-size: 12px;
+    padding-right: 1rem !important;
+    padding-bottom: 0.3rem !important;
+  }
+
   .home .graph-box {
     background-color: white;
     position: relative;
     top: 52px;
     width: 96%;
-    height: 500px;
+    height: 550px;
     margin: 10px;
     margin-top: 20px;
     border: 1px solid grey;
     box-shadow: 5px 10px 15px;
   }
 
+  .home .graph-box .graph {
+    overflow-x: auto;
+    width: 200%;
+  }
+
   .home .graph-box .tabs {
     font-family: sans-serif;
     margin-top: 25px;
-    height: 80%;
+    height: 90%;
     display: flex;
     flex-wrap: wrap;
-    overflow-y: auto;
+    overflow-x: auto;
   }
   .home .graph-box .tabs__radio {
     display: none;
@@ -84,8 +103,8 @@
   }
   .home .graph-box .tabs__content {
     order: 1;
-    width: 100%;
     display: none;
+    width: 200%;
   }
   .home .graph-box .tabs__radio:checked + .tabs__label {
     font-weight: bold;
@@ -96,18 +115,21 @@
     display: initial;
   }
 
-  .home .graph-box .graph {
-    overflow-x: auto;
-    overflow-y: auto;
-    font-family: sans-serif;
+  .home .page-end {
+    background-color: black;
+    position: relative;
+    top: 52px;
+    bottom: 0;
+    width: 100%;
+    margin: 10px;
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
   }
 
-  th {
-    font-size: 14px;
-    padding-right: 1rem;
-    text-align: left;
-  }
-  td {
-    font-size: 12px;
-    padding-right: 1rem;
+  .home .page-end .text{
+    color: white;
   }
