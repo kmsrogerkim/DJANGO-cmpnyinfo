@@ -53,8 +53,22 @@
   
   table {
     height: 95%;
+    width: 200%;
+    border-collapse: separate !important;
   }
   
+  th {
+    font-size: 14px;
+    text-align: left;
+    padding-right: 1rem !important;
+    padding-bottom: 0.3rem !important;
+  }
+  td {
+    font-size: 12px;
+    padding-right: 1rem !important;
+    padding-bottom: 0.3rem !important;
+  }
+
   .home .graph-box {
     background-color: white;
     position: relative;
@@ -100,14 +114,4 @@
     overflow-x: auto;
     overflow-y: auto;
     font-family: sans-serif;
-  }
-
-  th {
-    font-size: 14px;
-    padding-right: 1rem;
-    text-align: left;
-  }
-  td {
-    font-size: 12px;
-    padding-right: 1rem;
   }
