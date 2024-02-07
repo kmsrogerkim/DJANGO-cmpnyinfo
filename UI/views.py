@@ -1,10 +1,9 @@
-from django.contrib.auth import authenticate, login, logout
-from django.contrib import messages
 from django.shortcuts import render, redirect
+from django.contrib import messages
 
 from tabulate import tabulate
-import plotly.express as px
 import plotly.graph_objects as go
+import plotly.express as px
 import pandas as pd
 import requests, json
 
@@ -33,26 +32,42 @@ def cmpny(request, cmpnyname):
     if graph_data.status_code != 200:
         return redirect("not_found")
     graph_data = graph_data.json() #dict
-    graph_data = pd.DataFrame(graph_data)
 
+    #BOX PLOT
+    box_plot_data = graph_data["box_plot_data"]
+    box_plot_data = pd.DataFrame(box_plot_data)
     graph_val = []
     labels = ["P_Contd", "L_Contd", "P_Turned", "L_Turned"]
     for state in labels:
-        value = graph_data[graph_data["Operating_Income(added)_Profit_Status"] == state]
+        value = box_plot_data[box_plot_data["Operating_Income(added)_Profit_Status"] == state]
         if value.empty:
             graph_val.append([0])
         else:
             graph_val.append(list(value["Profit"]))    
-
-    print(type(graph_val[0]))
-    print(graph_val)
-    # Create a box plot using Plotly Express
+    #Drawing with Plotly
     fig = go.Figure()
     for i in range(4):
         fig.add_trace(go.Box(y=graph_val[i], name=labels[i]))
-    graph = fig.to_html()
+    box_plot = fig.to_html()
 
-    return render(request, "cmpny.html", {"basic_info":basic_info, "finstate_sum":finstate_sum, "keys":keys, "graph":graph})
+    #Number
+    number_data = graph_data["number_data"] #dict {"Year":[2019,...], "a":[...]}
+    years = number_data.pop("Year")
+    number_graph = draw_line_graph(years, graph_data=number_data)
+    
+    #Ratio
+    ratio_data = graph_data["ratio_data"] #dict {"Year":[2019,...], "a":[...]}
+    ratio_graph = draw_line_graph(years, graph_data=ratio_data)
+
+    return render(request, "cmpny.html", {"basic_info":basic_info, "finstate_sum":finstate_sum, "keys":keys, "box_plot":box_plot, "number_graph":number_graph, "ratio_graph":ratio_graph})
 
 def not_found(request):
     return render(request, "not_found.html")
+
+def draw_line_graph(x: list, graph_data:dict):
+    traces = []
+    for key, val in graph_data.items():
+        traces.append(go.Scatter(x=x, y=val, name=key))
+    layout = go.Layout(xaxis=dict(title='Year'), yaxis=dict(title='Stats'), width=600)
+    fig = go.Figure(data=traces, layout=layout)
+    return fig.to_html()

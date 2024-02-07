@@ -48,8 +48,8 @@ def get_hl(sp_data: pd.DataFrame) -> dict:
     return high, low
 
 def get_cmpny_df(basic_info_csv: pd.DataFrame, cmpnyname: str):
+    df = basic_info_csv.loc[basic_info_csv["Company_Name"] == cmpnyname]
     #If there is no data for the company
-    df = basic_info_csv[basic_info_csv["Company_Name"] == cmpnyname]
     if df["Operating_Income(added)_Profit_Status"].iloc[0] == np.nan:
         print("~" * 100)
         raise custom_exceptions.YoungCmpny

@@ -59,27 +59,27 @@
                 </div>
             </div>
             <div class="graph-box">
-                <h1 class="title">Graphs Here</h1>
+                <h1 class="title">Graphs</h1>
                 <div class="tabs">
                     <!-- Tab no.1 Box Plot-->
                     <input type="radio" class="tabs__radio" name="graph-tabs" id="tab1" checked>
                     <label for="tab1" class="tabs__label">Box Plot</label>
                     <div class="graph tabs__content">
-                        {{ graph|safe }}
+                        {{ box_plot|safe }}
                     </div>
                     
                     <!-- Tab no.2 Numbers-->
                     <input type="radio" class="tabs__radio" name="graph-tabs" id="tab2" checked>
                     <label for="tab2" class="tabs__label">Numbers</label>
                     <div class="graph tabs__content">
-                        Another graph here
+                        {{ number_graph|safe }}
                     </div>
                     
                     <!-- Tab no.3 Ratios-->
                     <input type="radio" class="tabs__radio" name="graph-tabs" id="tab3" checked>
                     <label for="tab3" class="tabs__label">Ratios</label>
                     <div class="graph tabs__content">
-                        Graph no. 3
+                        {{ ratio_graph|safe }}
                     </div>
                 </div>
             </div>

@@ -62,14 +62,23 @@ def get_graph_data(request):
     cmpnyname = post_data["cmpnyname"]
 
     try:
-        df = cmpny_data.get_cmpny_df(bf_analysis_csv, cmpnyname)
+        #Initializing dfs
+        boxPlot_df = cmpny_data.get_cmpny_df(bf_analysis_csv, cmpnyname)
+
+        number_df = cmpny_data.get_cmpny_df(basic_info_csv, cmpnyname)
+        ratio_df = number_df[["Debt_Equity_Ratio", "PER", "ROA", "ROE"]]
+        number_df = number_df[["Year", "Total_Assets", "Total_Debt", "Total_Equity", "Revenue", "Operating_Income(added)", "Net_Income(added)"]]
     except Exception as e:
         print(e)
         return Response({"error": "Bad Request: YoungCmpny"}, status=status.HTTP_400_BAD_REQUEST)
     
-    if "Profit" not in df:
-        df["Profit"] = (df["Current_Stock"] - df["Future_Stock"]) / df["Current_Stock"] * 100
-    
-    #Convert df to dict
-    finstate_sum = df.to_dict(orient="records")
-    return Response(finstate_sum)
+    if "Profit" not in boxPlot_df:
+        boxPlot_df["Profit"] = (boxPlot_df["Current_Stock"] - boxPlot_df["Future_Stock"]) / boxPlot_df["Current_Stock"] * 100
+
+    #Convert dfs to dict
+    response = {
+    "box_plot_data": boxPlot_df.to_dict(orient="records"),
+    "ratio_data": ratio_df.to_dict(orient="list"),
+    "number_data": number_df.to_dict(orient="list"),
+    }
+    return Response(response)
