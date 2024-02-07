@@ -17,20 +17,16 @@ def cmpny(request, cmpnyname):
     if request.method == 'POST':
         cmpnyname = request.POST.get("cmpnyname")
         return redirect("cmpny", cmpnyname=cmpnyname)
+    
+    #Calling API
     basic_info = requests.post("http://localhost:8000/api/basicInfo", data={"cmpnyname":cmpnyname})
-    if basic_info.status_code != 200:
+    finstate_sum = requests.post("http://localhost:8000/api/finstateSum", data={"cmpnyname":cmpnyname})
+    graph_data = requests.post("http://localhost:8000/api/graphData", data={"cmpnyname":cmpnyname})
+    if basic_info.status_code != 200 or finstate_sum.status_code != 200 or graph_data.status_code != 200:
         return redirect("not_found")
     basic_info = basic_info.json() #dict
-
-    finstate_sum = requests.post("http://localhost:8000/api/finstateSum", data={"cmpnyname":cmpnyname})
-    if finstate_sum.status_code != 200:
-        return redirect("not_found")
     finstate_sum = finstate_sum.json() #dict
     keys = list(finstate_sum[0].keys())
-
-    graph_data = requests.post("http://localhost:8000/api/graphData", data={"cmpnyname":cmpnyname})
-    if graph_data.status_code != 200:
-        return redirect("not_found")
     graph_data = graph_data.json() #dict
 
     #BOX PLOT
