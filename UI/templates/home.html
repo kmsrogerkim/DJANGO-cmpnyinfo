@@ -12,19 +12,7 @@
   <body>
     <div class="home">
       <div class="div">
-        <div class="frame">
-          <form method="post">
-            <div class="search-header">
-              <img class="img" src="{%static 'UI/img/search.svg'%}" />
-              <!-- <div class="text-wrapper">Search Company Name to Start</div> -->
-              <form method="post">
-              {%csrf_token%}
-              <input type="text" name="cmpnyname" id="cmpnyname" placeholder="Search Company Name">
-              </form>
-              <!-- <img class="img" src="{%static 'UI/img/x-circle.svg'%}" /> -->
-              <!-- <div class="search-blinker"><img class="line" src="{%static 'UI/img/line-3.svg'%}" /></div> -->
-            </div>
-          </form>
+        {%include 'search-header.html'%}
         </div>
         <p class="this-website-is">
           <span class="span">This website is provides a </span>

@@ -1,3 +1,7 @@
+'''
+This file MUST BE RAN ON THE ROOT DIR!
+'''
+
 import subprocess
 
 def main():

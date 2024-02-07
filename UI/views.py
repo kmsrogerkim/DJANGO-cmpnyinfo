@@ -15,6 +15,9 @@ def home(request):
     return render(request, "home.html")
 
 def cmpny(request, cmpnyname):
+    if request.method == 'POST':
+        cmpnyname = request.POST.get("cmpnyname")
+        return redirect("cmpny", cmpnyname=cmpnyname)
     basic_info = requests.post("http://localhost:8000/api/basicInfo", data={"cmpnyname":cmpnyname})
     if basic_info.status_code != 200:
         return redirect("not_found")

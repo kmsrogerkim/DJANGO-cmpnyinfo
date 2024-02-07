@@ -3,7 +3,8 @@ from datetime import date
 import pandas as pd
 import time
 
-from . import custom_exceptions
+from . import custom_exceptions #When running as django
+# import custom_exceptions #When running as api_local
 
 '''
 11013: 1분기
