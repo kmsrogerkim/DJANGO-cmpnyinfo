@@ -68,6 +68,6 @@ def draw_line_graph(x: list, graph_data:dict):
     traces = []
     for key, val in graph_data.items():
         traces.append(go.Scatter(x=x, y=val, name=key))
-    layout = go.Layout(xaxis=dict(title='Year'), yaxis=dict(title='Stats'), width=600)
+    layout = go.Layout(xaxis=dict(title='Year'), yaxis=dict(title='Stats'), width=550)
     fig = go.Figure(data=traces, layout=layout)
     return fig.to_html()
