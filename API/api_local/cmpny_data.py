@@ -5,9 +5,6 @@ The 'lib_one.py' file is exclusivly used by/for the local_api layer.
 '''
 from .import lib_one
 
-from rest_framework.response import Response
-from rest_framework import status
-
 from . import custom_exceptions
 
 import FinanceDataReader as fdr

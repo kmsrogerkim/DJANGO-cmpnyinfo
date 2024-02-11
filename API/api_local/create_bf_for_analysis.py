@@ -19,12 +19,12 @@ def GetStockPrices(sp_data: pd.DataFrame, years: list) -> pd.DataFrame:
     }
 
     year_date = str(years[0]) + "-12-31"
-    curr_stock = lib_one.GetPastStockPrice(sp_data, year_date)
+    curr_stock = lib_one.get_stock_price(sp_data, year_date)["Close"]
     dict_stock_data["Current_Stock"].append(curr_stock)
 
     for i in range(1,6):
         year_date = str(years[i]) + "-12-31"
-        curr_stock = lib_one.GetPastStockPrice(sp_data, year_date)
+        curr_stock = lib_one.get_stock_price(sp_data, year_date)["Close"]
         dict_stock_data["Future_Stock"].append(curr_stock)
         dict_stock_data["Current_Stock"].append(curr_stock) 
     dict_stock_data["Future_Stock"].append(0) #The last 'Future_Stock' is zero, cuz it's the newest.

@@ -133,7 +133,7 @@ def GetReport(dart, corp_code: str, year: int) -> dict:
 
     #GETTING THE PER OF EACH YEAR, DATE = 12.31; 당기 마지막 주가 기준 PER 계산
     for i in range(3):
-        key_info['PER'].append(round(lib_one.GetPastStockPrice(sp_data, date.strftime('%Y-%m-%d')) / key_info['EPS'][i], 2))
+        key_info['PER'].append(round(lib_one.get_stock_price(sp_data, date.strftime('%Y-%m-%d'))["Close"] / key_info['EPS'][i], 2))
         date += pd.DateOffset(years=1)
 
     return key_info
