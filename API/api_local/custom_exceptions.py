@@ -4,7 +4,7 @@ class YoungCmpny(Exception):
     ''' 
     def __init__(self, corp_code: str, end_year: str):
         self.value = end_year
-        self.message = f"-----The company({corp_code}) don't have any finstate before {end_year}!------"
+        self.message = f"YoungCmpny Error: The company({corp_code}) don't have any finstate before {end_year}!"
 
     def __str__(self):
         return self.message

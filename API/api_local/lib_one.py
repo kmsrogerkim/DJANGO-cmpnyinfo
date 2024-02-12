@@ -38,9 +38,9 @@ def GetDateToday():
 def GetLastWeek(today: pd.Timestamp) -> pd.Timestamp:
     return (today - pd.to_timedelta(7, 'D'))
 
-def GetSixYearsList(year: str):
+def GetSixYearsList(year: str) -> list:
     '''
-    Returns: Nothing. Adds the appropriate six years to the BasicInfo dict for each cmpny.
+    Returns: List of strings, past six yrs.
     '''
     year = int(year)
     year_list = []
@@ -49,6 +49,10 @@ def GetSixYearsList(year: str):
     return year_list
 
 def get_stock_price(sp_data, date: str) -> dict:
+    '''
+    Arguments: a dataframe object containing all the stock information of the company, the date
+    Returns: the high/low/close stock price closest from the past to the date given.
+    '''
     date = pd.to_datetime(date)
 
     #HAVE TO DO THIS CUZ THE sp_data returns Date as default index. So changing it back to column
@@ -73,32 +77,3 @@ def get_stock_price(sp_data, date: str) -> dict:
             else:
                 date -= pd.to_timedelta(1, 'day')
         return value
-    
-def GetPastStockPrice(sp_data, date: str):
-    '''
-    Arguments: a dataframe object containing all the stock information of the company, the date
-    Returns: the stock price closest from the past to the date given.
-    '''
-
-    #HAVE TO DO THIS CUZ THE sp_data returns Date as default index. So changing it back to column
-    if sp_data.index[0] != 0: #IF THE INDEX OF THE DATA IS THE TIME, NOT 0,1,...
-        sp_data.reset_index(inplace=True)  #SET TIME AS COLUMN AND REPLACE DEFAULT
-    
-    date = pd.to_datetime(date)
-
-    value = get_stock_price(sp_data, date)
-    return value["Close"]
-    
-def GetDetailStockPrice(sp_data, date: str) -> dict:
-    '''
-    Arguments: a dataframe object containing all the stock information of the company, the date
-    Returns: the high/low/close stock price closest from the past to the date given.
-    '''
-    #HAVE TO DO THIS CUZ THE sp_data returns Date as default index. So changing it back to column
-    if sp_data.index[0] != 0: #IF THE INDEX OF THE DATA IS THE TIME, NOT 0,1,...
-        sp_data.reset_index(inplace=True)  #SET TIME AS COLUMN AND REPLACE DEFAULT
-    
-    date = pd.to_datetime(date)
-    value = get_stock_price(sp_data, date)
-
-    return value

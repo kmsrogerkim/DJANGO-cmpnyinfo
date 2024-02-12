@@ -21,7 +21,7 @@ def get_stock_info(cmpnycode: str) -> dict:
     start_date = today - pd.to_timedelta(364, 'D') #52 weeks prior
     sp_data = fdr.DataReader(cmpnycode, start=start_date, end=today) #dataframe
 
-    yesterday_info = lib_one.GetDetailStockPrice(sp_data, today)
+    yesterday_info = lib_one.get_stock_price(sp_data, today)
     high, low = get_hl(sp_data)
 
     ans = {
@@ -47,7 +47,7 @@ def get_hl(sp_data: pd.DataFrame) -> dict:
 def get_cmpny_df(basic_info_csv: pd.DataFrame, cmpnyname: str):
     df = basic_info_csv.loc[basic_info_csv["Company_Name"] == cmpnyname]
     #If there is no data for the company
-    if df["Operating_Income(added)_Profit_Status"].iloc[0] == np.nan:
-        print("~" * 100)
-        raise custom_exceptions.YoungCmpny
-    return df
+    if isinstance(df["Operating_Income(added)_Profit_Status"].iloc[0], (str)):
+        return df
+    else:
+        raise custom_exceptions.YoungCmpny(corp_code=df["Company_Name"].iloc[0], end_year=df["Year"].iloc[0])

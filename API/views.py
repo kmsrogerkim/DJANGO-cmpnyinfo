@@ -25,7 +25,6 @@ bf_analysis_csv = pd.read_csv(file_path, usecols=cols, encoding='euc-kr')
 @api_view(['POST'])
 def get_basic_info(request):
     '''
-    Argument: POST http request
     Returns: basic stock info of the cmpny
     '''
     post_data = request.data #dict
@@ -46,11 +45,11 @@ def get_finstate_sum(request):
 
     try:
         df = cmpny_data.get_cmpny_df(basic_info_csv, cmpnyname)
-    except Exception as e:
+    except custom_exceptions.YoungCmpny as e:
         print(e)
         return Response({"error": "Bad Request: YoungCmpny"}, status=status.HTTP_400_BAD_REQUEST)
     #Dropping unnecessary infos
-    df.drop(["Revenue_Profit_Status", "Operating_Income(added)_Profit_Status", "Net_Income(added)_Profit_Status"], axis=1, inplace=True)
+    df = df.drop(["Revenue_Profit_Status", "Operating_Income(added)_Profit_Status", "Net_Income(added)_Profit_Status"], axis=1)
 
     #Convert df to dict
     finstate_sum = df.to_dict(orient="records")
@@ -68,12 +67,12 @@ def get_graph_data(request):
         number_df = cmpny_data.get_cmpny_df(basic_info_csv, cmpnyname)
         ratio_df = number_df[["Debt_Equity_Ratio", "PER", "ROA", "ROE"]]
         number_df = number_df[["Year", "Total_Assets", "Total_Debt", "Total_Equity", "Revenue", "Operating_Income(added)", "Net_Income(added)"]]
-    except Exception as e:
+    except custom_exceptions.YoungCmpny as e:
         print(e)
         return Response({"error": "Bad Request: YoungCmpny"}, status=status.HTTP_400_BAD_REQUEST)
     
     if "Profit" not in boxPlot_df:
-        boxPlot_df["Profit"] = (boxPlot_df["Current_Stock"] - boxPlot_df["Future_Stock"]) / boxPlot_df["Current_Stock"] * 100
+        boxPlot_df.loc[:, ["Profit"]] = (boxPlot_df["Current_Stock"] - boxPlot_df["Future_Stock"]) / boxPlot_df["Current_Stock"] * 100
 
     #Convert dfs to dict
     response = {
