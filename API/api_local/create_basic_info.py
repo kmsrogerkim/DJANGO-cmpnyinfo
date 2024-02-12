@@ -10,6 +10,7 @@ import OpenDartReader
 import pandas as pd
 import numpy as np
 import pickle, os
+import logging
 
 def GetIncreaseRate(BasicInfo):
     '''
@@ -138,7 +139,7 @@ def GetReport(dart, corp_code: str, year: int) -> dict:
 
     return key_info
 
-def CreateCmpnyBF(BasicInfo: dict, name_code: dict, company_name: str, year_list: list, dart):
+def CreateCmpnyBF(BasicInfo: dict, name_code: dict, company_name: str, year_list: list, dart, logger):
     '''
     Returns: Nothing. Modifies BasicInfo for each compnay
     '''
@@ -151,8 +152,8 @@ def CreateCmpnyBF(BasicInfo: dict, name_code: dict, company_name: str, year_list
             finReport = GetReport(dart, name_code[company_name], years)
             BasicInfo['EPS'] += finReport['EPS']
             BasicInfo['PER'] += finReport['PER']
-        except Exception as e:
-            print(e)
+        except custom_exceptions.StockPriceError or custom_exceptions.YoungCmpny as e:
+            logger.error(f"{e}")
             start_index = len(BasicInfo["Company_Name"])-6
             for key, value in BasicInfo.items():
                 if key != "Company_Name" and key != "Year":
@@ -163,6 +164,24 @@ def CreateCmpnyBF(BasicInfo: dict, name_code: dict, company_name: str, year_list
     GetIncreaseRate(BasicInfo)
     GetRatios(BasicInfo)
     GetProfitStatus(BasicInfo)
+
+def RunLoop(BasicInfo: dict, name_code: dict, company_names: list, year_list: list, dart, logger):
+    '''
+    Arguments: all the initialized data
+    Returns: nothing. Just runs the loop and handles exceptions
+    '''
+    for i in tqdm(range(len(company_names))):
+        try:
+            for key, value in BasicInfo.items():
+                if (len(value)) != len(BasicInfo["Company_Name"]):
+                    print("a")
+            CreateCmpnyBF(BasicInfo, name_code, company_names[i], year_list, dart, logger)
+        except Exception as e:
+            logger.error(f"{e}")
+            start_index = len(BasicInfo["Company_Name"]) - 6
+            for key, value in BasicInfo.items():
+                if key != "Company_Name" and key != "Year":
+                    value[start_index:start_index+6] = [np.nan] * 6
 
 def main():
     my_api = dart_my_api #FROM THE API_KEYS FILE
@@ -201,19 +220,12 @@ def main():
         'PER':[]
     }
 
+    #For logging
+    logging.basicConfig(filename="./API/api_local/logs/create_basic_info.log", level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+    logger = logging.getLogger()
+
     company_names = list(name_code.keys())
-    for i in tqdm(range(len(company_names))):
-        try:
-            for key, value in BasicInfo.items():
-                if (len(value)) != len(BasicInfo["Company_Name"]):
-                    print("a")
-            CreateCmpnyBF(BasicInfo, name_code, company_names[i], year_list, dart)
-        except Exception as e:
-            print(e)
-            start_index = len(BasicInfo["Company_Name"]) - 6
-            for key, value in BasicInfo.items():
-                if key != "Company_Name" and key != "Year":
-                    value[start_index:start_index+6] = [np.nan] * 6
+    RunLoop(BasicInfo, name_code, company_names, year_list, dart, logger)
 
     #CREATING FILE PATH FOR SAVING THE CSV TABLE    
     save_file_path = os.path.join(os.getcwd(), 'API', 'api_local', 'Data', 'basic_info.csv')
