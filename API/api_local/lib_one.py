@@ -38,9 +38,9 @@ def GetDateToday():
 def GetLastWeek(today: pd.Timestamp) -> pd.Timestamp:
     return (today - pd.to_timedelta(7, 'D'))
 
-def GetSixYearsList(year: str):
+def GetSixYearsList(year: str) -> list:
     '''
-    Returns: Nothing. Adds the appropriate six years to the BasicInfo dict for each cmpny.
+    Returns: List of strings, past six yrs.
     '''
     year = int(year)
     year_list = []
