@@ -27,8 +27,6 @@ def get_basic_info(request):
     '''
     Returns: basic stock info of the cmpny
     '''
-    print(type(request))
-    print(request)
     post_data = request.data #dict
     cmpnyname = post_data["cmpnyname"]
     try:
