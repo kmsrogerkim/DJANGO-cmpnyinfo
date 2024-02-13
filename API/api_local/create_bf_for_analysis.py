@@ -48,6 +48,7 @@ def RunLoop(company_names: list, name_code: dict, years: list, stock_prices: pd.
             stock_prices = pd.concat([stock_prices, temp_stock_prices], ignore_index=True)
             continue
         stock_prices = pd.concat([stock_prices, temp_stock_prices], ignore_index=True)
+    return stock_prices
 
 def Append(BasicInfo: pd.DataFrame, stock_prices: pd.DataFrame):
     #ADDING THE STOCKPRICES DF TO THE BASICINFO DF
@@ -55,6 +56,7 @@ def Append(BasicInfo: pd.DataFrame, stock_prices: pd.DataFrame):
     BasicInfo = pd.concat([BasicInfo, stock_prices], axis=1, ignore_index=True) #ADDING THE STOCKPRICES DF TO THE BASICINFO DF
     BasicInfo.drop(BasicInfo.columns[13], axis=1, inplace=True)
     BasicInfo.columns = columns
+    return BasicInfo
 
 def main():
     #GETTING name_code.pkl
@@ -75,8 +77,8 @@ def main():
     logging.basicConfig(filename="./API/api_local/logs/create_bf_for_analysis.log", level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
     logger = logging.getLogger()
 
-    RunLoop(company_names, name_code, years, stock_prices, logger)
-    Append(BasicInfo, stock_prices)
+    stock_prices = RunLoop(company_names, name_code, years, stock_prices, logger)
+    BasicInfo = Append(BasicInfo, stock_prices)
 
     #SAVING IT
     file_path = os.path.join(os.getcwd(), 'API', 'api_local', 'Data', 'basic_info_for_analysis.csv')
