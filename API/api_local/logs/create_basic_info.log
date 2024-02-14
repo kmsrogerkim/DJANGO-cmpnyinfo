@@ -142,3 +142,38 @@
 2024-02-14 14:52:06,844 - ERROR - YoungCmpny Error: The company(016360) don't have any finstate before 2019!
 2024-02-14 14:52:06,854 - ERROR - could not find "005385"
 2024-02-14 14:52:10,751 - ERROR - YoungCmpny Error: The company(001450) don't have any finstate before 2019!
+2024-02-14 15:56:03,732 - ERROR - YoungCmpny Error: The company(373220) don't have any finstate before 2019!
+2024-02-14 15:56:05,955 - ERROR - could not find "005935"
+2024-02-14 15:56:13,007 - ERROR - YoungCmpny Error: The company(105560) don't have any finstate before 2019!
+2024-02-14 15:56:15,853 - ERROR - YoungCmpny Error: The company(055550) don't have any finstate before 2019!
+2024-02-14 15:56:19,567 - ERROR - YoungCmpny Error: The company(032830) don't have any finstate before 2019!
+2024-02-14 15:56:19,859 - ERROR - YoungCmpny Error: The company(086790) don't have any finstate before 2019!
+2024-02-14 15:56:21,356 - ERROR - YoungCmpny Error: The company(000810) don't have any finstate before 2019!
+2024-02-14 15:56:22,727 - ERROR - YoungCmpny Error: The company(138040) don't have any finstate before 2019!
+2024-02-14 15:56:24,121 - ERROR - YoungCmpny Error: The company(323410) don't have any finstate before 2019!
+2024-02-14 15:56:29,164 - ERROR - YoungCmpny Error: The company(450080) don't have any finstate before 2019!
+2024-02-14 15:56:32,540 - ERROR - YoungCmpny Error: The company(316140) don't have any finstate before 2019!
+2024-02-14 15:56:32,838 - ERROR - YoungCmpny Error: The company(024110) don't have any finstate before 2019!
+2024-02-14 15:56:34,367 - ERROR - YoungCmpny Error: The company(259960) don't have any finstate before 2019!
+2024-02-14 15:56:36,901 - ERROR - YoungCmpny Error: The company(329180) don't have any finstate before 2019!
+2024-02-14 15:56:41,969 - ERROR - YoungCmpny Error: The company(402340) don't have any finstate before 2019!
+2024-02-14 15:56:44,609 - ERROR - YoungCmpny Error: The company(352820) don't have any finstate before 2019!
+2024-02-14 15:56:49,569 - ERROR - YoungCmpny Error: The company(005830) don't have any finstate before 2019!
+2024-02-14 15:56:52,332 - ERROR - YoungCmpny Error: The company(326030) don't have any finstate before 2019!
+2024-02-14 15:56:54,979 - ERROR - YoungCmpny Error: The company(377300) don't have any finstate before 2019!
+2024-02-14 15:56:58,468 - ERROR - 'se'
+2024-02-14 15:57:00,661 - ERROR - could not find "005387"
+2024-02-14 15:57:01,039 - ERROR - YoungCmpny Error: The company(006800) don't have any finstate before 2019!
+2024-02-14 15:57:04,780 - ERROR - YoungCmpny Error: The company(302440) don't have any finstate before 2019!
+2024-02-14 15:57:08,570 - ERROR - 'se'
+2024-02-14 15:57:12,317 - ERROR - YoungCmpny Error: The company(361610) don't have any finstate before 2019!
+2024-02-14 15:57:22,713 - ERROR - HTTPSConnectionPool(host='opendart.fss.or.kr', port=443): Max retries exceeded with url: /api/alotMatter.json?crtfc_key=c9c3e33ebd69e0180bafc54c2ed7f47f44663bf5&corp_code=00126308&bsns_year=2022&reprt_code=11011 (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1007)')))
+2024-02-14 15:57:23,475 - ERROR - YoungCmpny Error: The company(021240) don't have any finstate before 2022!
+2024-02-14 15:57:23,525 - ERROR - HTTPSConnectionPool(host='opendart.fss.or.kr', port=443): Max retries exceeded with url: /api/stockTotqySttus.json?crtfc_key=c9c3e33ebd69e0180bafc54c2ed7f47f44663bf5&corp_code=00261443&bsns_year=2022&reprt_code=11011 (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1007)')))
+2024-02-14 15:57:34,798 - ERROR - Given date not in the dataframe 'sp_data'
+2024-02-14 15:57:36,336 - ERROR - YoungCmpny Error: The company(029780) don't have any finstate before 2019!
+2024-02-14 15:57:40,709 - ERROR - YoungCmpny Error: The company(005940) don't have any finstate before 2019!
+2024-02-14 15:57:43,190 - ERROR - YoungCmpny Error: The company(071050) don't have any finstate before 2019!
+2024-02-14 15:57:43,550 - ERROR - YoungCmpny Error: The company(016360) don't have any finstate before 2019!
+2024-02-14 15:57:43,560 - ERROR - could not find "005385"
+2024-02-14 15:57:47,408 - ERROR - YoungCmpny Error: The company(001450) don't have any finstate before 2019!

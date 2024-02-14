@@ -125,7 +125,7 @@ def GetReport(dart, corp_code: str, year: int) -> dict:
         'PER': [],
     }
     report = dart.report(corp_code, "배당", year, "11011") #GETTING THE STATEMENT OF PROFIT OR LOSS
-    today = lib_one.GetDateToday()
+    today = lib_one.get_date_today()
     sp_data = fdr.DataReader(corp_code, "2017-12-01", today) #GETTING A DATAFRAME OF THE STOCKPRICES OF THE CORP_CODE CORPORATION
 
     #GETTING THE EPS FROM THE STATEMENT OF PROFIT OR LOSS
@@ -153,7 +153,7 @@ def CreateCmpnyBF(BasicInfo: dict, name_code: dict, company_name: str, year_list
     Returns: Nothing. Modifies BasicInfo for each compnay
     '''
     BasicInfo['Company_Name'] += [company_name] * 6
-    BasicInfo["Year"] += lib_one.GetSixYearsList(year=year_list[1])
+    BasicInfo["Year"] += lib_one.get_six_years_list(year=year_list[1])
 
     stock_num = GetStockNum(dart, name_code[company_name], year_list[1])
     stock_num = [np.nan] * 5 + [stock_num]

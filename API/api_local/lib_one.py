@@ -15,7 +15,7 @@ except Exception as e:
 11011: 사업보고서
 '''
     
-def Timer(func):
+def timer(func):
     def Wrapper(*args, **kwargs):
         print(func.__name__)
         start = time.time()
@@ -26,7 +26,7 @@ def Timer(func):
         return obj
     return Wrapper
 
-def GetDateToday():
+def get_date_today():
     today = date.today()
     x = today.weekday()
     today = pd.to_datetime(today)
@@ -35,10 +35,10 @@ def GetDateToday():
         x -= 1
     return today
 
-def GetLastWeek(today: pd.Timestamp) -> pd.Timestamp:
+def get_last_week(today: pd.Timestamp) -> pd.Timestamp:
     return (today - pd.to_timedelta(7, 'D'))
 
-def GetSixYearsList(year: str) -> list:
+def get_six_years_list(year: str) -> list:
     '''
     Returns: List of strings, past six yrs.
     '''

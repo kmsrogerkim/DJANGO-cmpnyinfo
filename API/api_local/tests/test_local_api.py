@@ -68,7 +68,8 @@ class Test():
             'ROA' : [],
             'ROE' : [],
             'EPS':[],
-            'PER':[]
+            'PER':[],
+            'Stock_Num':[]
         }
 
     # @pytest.mark.skip(reason="To test cbfa")
