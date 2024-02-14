@@ -30,3 +30,36 @@
 2024-02-14 20:17:05,063 - ERROR - YoungCmpny Error: The company(005940) don't have any finstate before 2019!
 2024-02-14 20:17:07,800 - ERROR - YoungCmpny Error: The company(016360) don't have any finstate before 2019!
 2024-02-14 20:17:18,171 - ERROR - HTTPSConnectionPool(host='opendart.fss.or.kr', port=443): Max retries exceeded with url: /api/alotMatter.json?crtfc_key=c9c3e33ebd69e0180bafc54c2ed7f47f44663bf5&corp_code=00161125&bsns_year=2022&reprt_code=11011 (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1007)')))
+2024-02-14 20:18:59,864 - ERROR - YoungCmpny Error: The company(373220) don't have any finstate before 2019!
+2024-02-14 20:19:01,588 - ERROR - YoungCmpny Error: The company(005935) don't have any finstate before 2022!
+2024-02-14 20:19:06,892 - ERROR - YoungCmpny Error: The company(105560) don't have any finstate before 2019!
+2024-02-14 20:19:08,904 - ERROR - YoungCmpny Error: The company(055550) don't have any finstate before 2019!
+2024-02-14 20:19:11,764 - ERROR - YoungCmpny Error: The company(032830) don't have any finstate before 2019!
+2024-02-14 20:19:12,085 - ERROR - YoungCmpny Error: The company(086790) don't have any finstate before 2019!
+2024-02-14 20:19:12,391 - ERROR - YoungCmpny Error: The company(138040) don't have any finstate before 2019!
+2024-02-14 20:19:13,561 - ERROR - YoungCmpny Error: The company(323410) don't have any finstate before 2019!
+2024-02-14 20:19:13,903 - ERROR - YoungCmpny Error: The company(000810) don't have any finstate before 2019!
+2024-02-14 20:19:15,158 - ERROR - YoungCmpny Error: The company(450080) don't have any finstate before 2019!
+2024-02-14 20:19:19,553 - ERROR - YoungCmpny Error: The company(259960) don't have any finstate before 2019!
+2024-02-14 20:19:20,732 - ERROR - YoungCmpny Error: The company(024110) don't have any finstate before 2019!
+2024-02-14 20:19:21,054 - ERROR - YoungCmpny Error: The company(316140) don't have any finstate before 2019!
+2024-02-14 20:19:23,784 - ERROR - YoungCmpny Error: The company(329180) don't have any finstate before 2019!
+2024-02-14 20:19:25,684 - ERROR - YoungCmpny Error: The company(352820) don't have any finstate before 2019!
+2024-02-14 20:19:26,831 - ERROR - YoungCmpny Error: The company(402340) don't have any finstate before 2019!
+2024-02-14 20:19:34,000 - ERROR - YoungCmpny Error: The company(326030) don't have any finstate before 2019!
+2024-02-14 20:19:34,289 - ERROR - YoungCmpny Error: The company(005830) don't have any finstate before 2019!
+2024-02-14 20:19:36,122 - ERROR - YoungCmpny Error: The company(377300) don't have any finstate before 2019!
+2024-02-14 20:19:36,926 - ERROR - YoungCmpny Error: The company(005387) don't have any finstate before 2022!
+2024-02-14 20:19:39,446 - ERROR - YoungCmpny Error: The company(088980) don't have any finstate before 2022!
+2024-02-14 20:19:40,387 - ERROR - YoungCmpny Error: The company(454910) don't have any finstate before 2022!
+2024-02-14 20:19:42,331 - ERROR - YoungCmpny Error: The company(006800) don't have any finstate before 2019!
+2024-02-14 20:19:44,271 - ERROR - YoungCmpny Error: The company(302440) don't have any finstate before 2019!
+2024-02-14 20:19:45,399 - ERROR - YoungCmpny Error: The company(361610) don't have any finstate before 2019!
+2024-02-14 20:19:54,320 - ERROR - YoungCmpny Error: The company(032640) don't have any finstate before 2022!
+2024-02-14 20:19:54,374 - ERROR - HTTPSConnectionPool(host='opendart.fss.or.kr', port=443): Max retries exceeded with url: /api/stockTotqySttus.json?crtfc_key=c9c3e33ebd69e0180bafc54c2ed7f47f44663bf5&corp_code=00362441&bsns_year=2022&reprt_code=11011 (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1007)')))
+2024-02-14 20:20:05,158 - ERROR - YoungCmpny Error: The company(029780) don't have any finstate before 2019!
+2024-02-14 20:20:06,842 - ERROR - YoungCmpny Error: The company(005385) don't have any finstate before 2022!
+2024-02-14 20:20:07,961 - ERROR - YoungCmpny Error: The company(071050) don't have any finstate before 2019!
+2024-02-14 20:20:08,341 - ERROR - YoungCmpny Error: The company(005940) don't have any finstate before 2019!
+2024-02-14 20:20:09,303 - ERROR - HTTPSConnectionPool(host='opendart.fss.or.kr', port=443): Max retries exceeded with url: /api/stockTotqySttus.json?crtfc_key=c9c3e33ebd69e0180bafc54c2ed7f47f44663bf5&corp_code=00255619&bsns_year=2022&reprt_code=11011 (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1007)')))
+2024-02-14 20:20:11,362 - ERROR - YoungCmpny Error: The company(016360) don't have any finstate before 2019!
