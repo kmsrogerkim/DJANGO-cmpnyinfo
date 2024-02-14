@@ -4,6 +4,7 @@ from API_KEYS import * #SO DELETE THIS LINE!!!!!
 import lib_one, custom_exceptions
 
 import time
+from requests.exceptions import SSLError
 
 import FinanceDataReader as fdr
 from tabulate import tabulate
@@ -195,9 +196,17 @@ def RunLoop(BasicInfo: dict, name_code: dict, company_names: list, year_list: li
             #     if (len(value)) != len(BasicInfo["Company_Name"]):
             #         print("a")
             CreateCmpnyBF(BasicInfo, name_code, company_names[i], year_list, dart, logger)
-        except (custom_exceptions.StockPriceError, custom_exceptions.YoungCmpny) as e:
-            #When any other exceptions occur
+        except SSLError as e:
+            #When I give too much request to dart
             logger.error(f"{e}")
+            for i in range(5):
+                time.sleep(i/2)
+                try:
+                    CreateCmpnyBF(BasicInfo, name_code, company_names[i], year_list, dart, logger)
+                    break
+                except Exception as e:
+                    logger.error(f"{e}")
+                    continue
             start_index = len(BasicInfo["Company_Name"]) - 6
             for key, value in BasicInfo.items():
                 if key != "Company_Name" and key != "Year":
