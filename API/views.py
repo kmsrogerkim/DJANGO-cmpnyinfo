@@ -48,7 +48,7 @@ def get_finstate_sum(request):
     except custom_exceptions.YoungCmpny as e:
         return Response({"error": "Bad Request: YoungCmpny"}, status=status.HTTP_400_BAD_REQUEST)
     #Dropping unnecessary infos
-    df = df.drop(["Revenue_Profit_Status", "Operating_Income(added)_Profit_Status", "Net_Income(added)_Profit_Status"], axis=1)
+    df = df.drop(["Revenue_Profit_Status", "Operating_Income(added)_Profit_Status", "Net_Income(added)_Profit_Status", "Stock_Num"], axis=1)
 
     #Convert df to dict
     finstate_sum = df.to_dict(orient="records")
