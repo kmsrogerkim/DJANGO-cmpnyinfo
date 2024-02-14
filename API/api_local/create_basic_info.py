@@ -190,17 +190,18 @@ def RunLoop(BasicInfo: dict, name_code: dict, company_names: list, year_list: li
     Returns: nothing. Just runs the loop and handles exceptions
     '''
     for i in tqdm(range(len(company_names))):
-        # try:
+        try:
             # for key, value in BasicInfo.items():
             #     if (len(value)) != len(BasicInfo["Company_Name"]):
             #         print("a")
-        CreateCmpnyBF(BasicInfo, name_code, company_names[i], year_list, dart, logger)
-        # except (custom_exceptions.StockPriceError, custom_exceptions.YoungCmpny) as e:
-        #     logger.error(f"{e}")
-        #     start_index = len(BasicInfo["Company_Name"]) - 6
-        #     for key, value in BasicInfo.items():
-        #         if key != "Company_Name" and key != "Year":
-        #             value[start_index:start_index+6] = [np.nan] * 6
+            CreateCmpnyBF(BasicInfo, name_code, company_names[i], year_list, dart, logger)
+        except (custom_exceptions.StockPriceError, custom_exceptions.YoungCmpny) as e:
+            #When any other exceptions occur
+            logger.error(f"{e}")
+            start_index = len(BasicInfo["Company_Name"]) - 6
+            for key, value in BasicInfo.items():
+                if key != "Company_Name" and key != "Year":
+                    value[start_index:start_index+6] = [np.nan] * 6
 
 def main():
     my_api = dart_my_api #FROM THE API_KEYS FILE
