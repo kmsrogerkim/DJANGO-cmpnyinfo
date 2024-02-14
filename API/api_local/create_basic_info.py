@@ -27,7 +27,8 @@ def GetIncreaseRate(BasicInfo):
             BasicInfo[key].append(0)
             for i in range(1, 6):
                 #CALCULATE THE DATA, EXCEPT FOR THE INITIAL ONE
-                BasicInfo[key].append(((BasicInfo[key.replace("_Increase_Rate", '')][i] - BasicInfo[key.replace("_Increase_Rate", '')][i-1]) / BasicInfo[key.replace("_Increase_Rate", '')][i]) * 100)
+                data = (((BasicInfo[key.replace("_Increase_Rate", '')][i] - BasicInfo[key.replace("_Increase_Rate", '')][i-1]) / BasicInfo[key.replace("_Increase_Rate", '')][i]) * 100)
+                BasicInfo[key].append(round(data, 2))
         if key == "Net_Income(added)_Increase_Rate":
             break
 
