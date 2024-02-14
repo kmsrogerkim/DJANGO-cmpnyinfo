@@ -1,7 +1,7 @@
 from tabulate import tabulate
 from datetime import date
 import pandas as pd
-import time
+import time, os
 
 try:
     from . import custom_exceptions #When running as django
@@ -77,3 +77,12 @@ def get_stock_price(sp_data, date: str) -> dict:
             else:
                 date -= pd.to_timedelta(1, 'day')
         return value
+
+def get_cmpny_stock(cmpnyname: str):
+    try:
+        file_path = os.path.join(os.getcwd(), 'API', 'api_local', 'Data', 'Stocks', f"{cmpnyname}_stock.csv")
+        df = pd.read_csv(file_path, encoding="euc-kr", parse_dates=["Date"])
+    except:
+        file_path = os.path.join(os.getcwd(), 'Data', 'Stocks', f"{cmpnyname}_stock.csv") #When testing
+        df = pd.read_csv(file_path, encoding="euc-kr", parse_dates=["Date"])
+    return df
