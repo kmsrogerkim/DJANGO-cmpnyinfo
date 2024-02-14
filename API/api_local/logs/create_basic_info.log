@@ -68,3 +68,77 @@
 2024-02-13 19:35:05,147 - ERROR - YoungCmpny Error: The company(016360) don't have any finstate before 2019!
 2024-02-13 19:35:05,157 - ERROR - YoungCmpny Error: The company(005385) don't have any finstate before 2019!
 2024-02-13 19:35:08,675 - ERROR - YoungCmpny Error: The company(001450) don't have any finstate before 2019!
+2024-02-14 14:19:45,292 - ERROR - YoungCmpny Error: The company(373220) don't have any finstate before 2019!
+2024-02-14 14:23:41,998 - ERROR - ('key_word is invalid: you can use one of ', dict_keys(['조건부자본증권미상환', '미등기임원보수', '회사채미상환', '단기사채미상환', '기업어음미상환', '채무증권발행', '사모자금사용', '공모자금사용', '임원전체보수승인', '임원전체보수유형', '주식총수', '회계감사', '감사용역', '회계감사용역계약', '사외이사', '신종자본증권미상환', '증자', '배당', '자기주식', '최대주주', '최대주주변동', '소액주주', '임원', '직원', '임원개인보수', '임원전체보수', '개인별보수', '타법인출자']))
+2024-02-14 14:23:42,548 - ERROR - ('key_word is invalid: you can use one of ', dict_keys(['조건부자본증권미상환', '미등기임원보수', '회사채미상환', '단기사채미상환', '기업어음미상환', '채무증권발행', '사모자금사용', '공모자금사용', '임원전체보수승인', '임원전체보수유형', '주식총수', '회계감사', '감사용역', '회계감사용역계약', '사외이사', '신종자본증권미상환', '증자', '배당', '자기주식', '최대주주', '최대주주변동', '소액주주', '임원', '직원', '임원개인보수', '임원전체보수', '개인별보수', '타법인출자']))
+2024-02-14 14:23:42,700 - ERROR - YoungCmpny Error: The company(373220) don't have any finstate before 2019!
+2024-02-14 14:23:43,129 - ERROR - ('key_word is invalid: you can use one of ', dict_keys(['조건부자본증권미상환', '미등기임원보수', '회사채미상환', '단기사채미상환', '기업어음미상환', '채무증권발행', '사모자금사용', '공모자금사용', '임원전체보수승인', '임원전체보수유형', '주식총수', '회계감사', '감사용역', '회계감사용역계약', '사외이사', '신종자본증권미상환', '증자', '배당', '자기주식', '최대주주', '최대주주변동', '소액주주', '임원', '직원', '임원개인보수', '임원전체보수', '개인별보수', '타법인출자']))
+2024-02-14 14:23:43,656 - ERROR - ('key_word is invalid: you can use one of ', dict_keys(['조건부자본증권미상환', '미등기임원보수', '회사채미상환', '단기사채미상환', '기업어음미상환', '채무증권발행', '사모자금사용', '공모자금사용', '임원전체보수승인', '임원전체보수유형', '주식총수', '회계감사', '감사용역', '회계감사용역계약', '사외이사', '신종자본증권미상환', '증자', '배당', '자기주식', '최대주주', '최대주주변동', '소액주주', '임원', '직원', '임원개인보수', '임원전체보수', '개인별보수', '타법인출자']))
+2024-02-14 14:23:43,660 - ERROR - YoungCmpny Error: The company(005935) don't have any finstate before 2019!
+2024-02-14 14:23:44,198 - ERROR - ('key_word is invalid: you can use one of ', dict_keys(['조건부자본증권미상환', '미등기임원보수', '회사채미상환', '단기사채미상환', '기업어음미상환', '채무증권발행', '사모자금사용', '공모자금사용', '임원전체보수승인', '임원전체보수유형', '주식총수', '회계감사', '감사용역', '회계감사용역계약', '사외이사', '신종자본증권미상환', '증자', '배당', '자기주식', '최대주주', '최대주주변동', '소액주주', '임원', '직원', '임원개인보수', '임원전체보수', '개인별보수', '타법인출자']))
+2024-02-14 14:23:44,707 - ERROR - ('key_word is invalid: you can use one of ', dict_keys(['조건부자본증권미상환', '미등기임원보수', '회사채미상환', '단기사채미상환', '기업어음미상환', '채무증권발행', '사모자금사용', '공모자금사용', '임원전체보수승인', '임원전체보수유형', '주식총수', '회계감사', '감사용역', '회계감사용역계약', '사외이사', '신종자본증권미상환', '증자', '배당', '자기주식', '최대주주', '최대주주변동', '소액주주', '임원', '직원', '임원개인보수', '임원전체보수', '개인별보수', '타법인출자']))
+2024-02-14 14:24:40,443 - ERROR - ('key_word is invalid: you can use one of ', dict_keys(['조건부자본증권미상환', '미등기임원보수', '회사채미상환', '단기사채미상환', '기업어음미상환', '채무증권발행', '사모자금사용', '공모자금사용', '임원전체보수승인', '임원전체보수유형', '주식총수', '회계감사', '감사용역', '회계감사용역계약', '사외이사', '신종자본증권미상환', '증자', '배당', '자기주식', '최대주주', '최대주주변동', '소액주주', '임원', '직원', '임원개인보수', '임원전체보수', '개인별보수', '타법인출자']))
+2024-02-14 14:24:41,029 - ERROR - ('key_word is invalid: you can use one of ', dict_keys(['조건부자본증권미상환', '미등기임원보수', '회사채미상환', '단기사채미상환', '기업어음미상환', '채무증권발행', '사모자금사용', '공모자금사용', '임원전체보수승인', '임원전체보수유형', '주식총수', '회계감사', '감사용역', '회계감사용역계약', '사외이사', '신종자본증권미상환', '증자', '배당', '자기주식', '최대주주', '최대주주변동', '소액주주', '임원', '직원', '임원개인보수', '임원전체보수', '개인별보수', '타법인출자']))
+2024-02-14 14:24:41,178 - ERROR - YoungCmpny Error: The company(373220) don't have any finstate before 2019!
+2024-02-14 14:24:41,638 - ERROR - ('key_word is invalid: you can use one of ', dict_keys(['조건부자본증권미상환', '미등기임원보수', '회사채미상환', '단기사채미상환', '기업어음미상환', '채무증권발행', '사모자금사용', '공모자금사용', '임원전체보수승인', '임원전체보수유형', '주식총수', '회계감사', '감사용역', '회계감사용역계약', '사외이사', '신종자본증권미상환', '증자', '배당', '자기주식', '최대주주', '최대주주변동', '소액주주', '임원', '직원', '임원개인보수', '임원전체보수', '개인별보수', '타법인출자']))
+2024-02-14 14:24:42,174 - ERROR - ('key_word is invalid: you can use one of ', dict_keys(['조건부자본증권미상환', '미등기임원보수', '회사채미상환', '단기사채미상환', '기업어음미상환', '채무증권발행', '사모자금사용', '공모자금사용', '임원전체보수승인', '임원전체보수유형', '주식총수', '회계감사', '감사용역', '회계감사용역계약', '사외이사', '신종자본증권미상환', '증자', '배당', '자기주식', '최대주주', '최대주주변동', '소액주주', '임원', '직원', '임원개인보수', '임원전체보수', '개인별보수', '타법인출자']))
+2024-02-14 14:24:42,177 - ERROR - YoungCmpny Error: The company(005935) don't have any finstate before 2019!
+2024-02-14 14:24:42,742 - ERROR - ('key_word is invalid: you can use one of ', dict_keys(['조건부자본증권미상환', '미등기임원보수', '회사채미상환', '단기사채미상환', '기업어음미상환', '채무증권발행', '사모자금사용', '공모자금사용', '임원전체보수승인', '임원전체보수유형', '주식총수', '회계감사', '감사용역', '회계감사용역계약', '사외이사', '신종자본증권미상환', '증자', '배당', '자기주식', '최대주주', '최대주주변동', '소액주주', '임원', '직원', '임원개인보수', '임원전체보수', '개인별보수', '타법인출자']))
+2024-02-14 14:25:12,466 - ERROR - ('key_word is invalid: you can use one of ', dict_keys(['조건부자본증권미상환', '미등기임원보수', '회사채미상환', '단기사채미상환', '기업어음미상환', '채무증권발행', '사모자금사용', '공모자금사용', '임원전체보수승인', '임원전체보수유형', '주식총수', '회계감사', '감사용역', '회계감사용역계약', '사외이사', '신종자본증권미상환', '증자', '배당', '자기주식', '최대주주', '최대주주변동', '소액주주', '임원', '직원', '임원개인보수', '임원전체보수', '개인별보수', '타법인출자']))
+2024-02-14 14:25:13,021 - ERROR - ('key_word is invalid: you can use one of ', dict_keys(['조건부자본증권미상환', '미등기임원보수', '회사채미상환', '단기사채미상환', '기업어음미상환', '채무증권발행', '사모자금사용', '공모자금사용', '임원전체보수승인', '임원전체보수유형', '주식총수', '회계감사', '감사용역', '회계감사용역계약', '사외이사', '신종자본증권미상환', '증자', '배당', '자기주식', '최대주주', '최대주주변동', '소액주주', '임원', '직원', '임원개인보수', '임원전체보수', '개인별보수', '타법인출자']))
+2024-02-14 14:25:13,159 - ERROR - YoungCmpny Error: The company(373220) don't have any finstate before 2019!
+2024-02-14 14:25:13,625 - ERROR - ('key_word is invalid: you can use one of ', dict_keys(['조건부자본증권미상환', '미등기임원보수', '회사채미상환', '단기사채미상환', '기업어음미상환', '채무증권발행', '사모자금사용', '공모자금사용', '임원전체보수승인', '임원전체보수유형', '주식총수', '회계감사', '감사용역', '회계감사용역계약', '사외이사', '신종자본증권미상환', '증자', '배당', '자기주식', '최대주주', '최대주주변동', '소액주주', '임원', '직원', '임원개인보수', '임원전체보수', '개인별보수', '타법인출자']))
+2024-02-14 14:25:14,207 - ERROR - ('key_word is invalid: you can use one of ', dict_keys(['조건부자본증권미상환', '미등기임원보수', '회사채미상환', '단기사채미상환', '기업어음미상환', '채무증권발행', '사모자금사용', '공모자금사용', '임원전체보수승인', '임원전체보수유형', '주식총수', '회계감사', '감사용역', '회계감사용역계약', '사외이사', '신종자본증권미상환', '증자', '배당', '자기주식', '최대주주', '최대주주변동', '소액주주', '임원', '직원', '임원개인보수', '임원전체보수', '개인별보수', '타법인출자']))
+2024-02-14 14:25:14,211 - ERROR - YoungCmpny Error: The company(005935) don't have any finstate before 2019!
+2024-02-14 14:34:09,142 - ERROR - 'False: boolean label can not be used without a boolean index'
+2024-02-14 14:34:09,821 - ERROR - 'False: boolean label can not be used without a boolean index'
+2024-02-14 14:34:09,968 - ERROR - YoungCmpny Error: The company(373220) don't have any finstate before 2019!
+2024-02-14 14:34:10,535 - ERROR - 'False: boolean label can not be used without a boolean index'
+2024-02-14 14:34:11,256 - ERROR - 'False: boolean label can not be used without a boolean index'
+2024-02-14 14:34:11,261 - ERROR - YoungCmpny Error: The company(005935) don't have any finstate before 2019!
+2024-02-14 14:39:03,625 - ERROR - 0
+2024-02-14 14:39:04,324 - ERROR - 0
+2024-02-14 14:39:04,503 - ERROR - YoungCmpny Error: The company(373220) don't have any finstate before 2019!
+2024-02-14 14:39:05,132 - ERROR - 0
+2024-02-14 14:40:39,014 - ERROR - unhashable type: 'list'
+2024-02-14 14:40:39,745 - ERROR - unhashable type: 'list'
+2024-02-14 14:40:39,904 - ERROR - YoungCmpny Error: The company(373220) don't have any finstate before 2019!
+2024-02-14 14:43:03,303 - ERROR - 'DataFrame' object has no attribute 'str'
+2024-02-14 14:43:03,901 - ERROR - 'DataFrame' object has no attribute 'str'
+2024-02-14 14:43:04,063 - ERROR - YoungCmpny Error: The company(373220) don't have any finstate before 2019!
+2024-02-14 14:48:58,364 - ERROR - YoungCmpny Error: The company(373220) don't have any finstate before 2019!
+2024-02-14 14:50:30,823 - ERROR - YoungCmpny Error: The company(373220) don't have any finstate before 2019!
+2024-02-14 14:50:33,193 - ERROR - could not find "005935"
+2024-02-14 14:50:42,084 - ERROR - YoungCmpny Error: The company(105560) don't have any finstate before 2019!
+2024-02-14 14:50:44,891 - ERROR - YoungCmpny Error: The company(055550) don't have any finstate before 2019!
+2024-02-14 14:50:47,936 - ERROR - YoungCmpny Error: The company(032830) don't have any finstate before 2019!
+2024-02-14 14:50:48,251 - ERROR - YoungCmpny Error: The company(086790) don't have any finstate before 2019!
+2024-02-14 14:50:49,803 - ERROR - YoungCmpny Error: The company(000810) don't have any finstate before 2019!
+2024-02-14 14:50:51,390 - ERROR - YoungCmpny Error: The company(138040) don't have any finstate before 2019!
+2024-02-14 14:50:52,831 - ERROR - YoungCmpny Error: The company(323410) don't have any finstate before 2019!
+2024-02-14 14:50:55,360 - ERROR - HTTPSConnectionPool(host='opendart.fss.or.kr', port=443): Max retries exceeded with url: /api/stockTotqySttus.json?crtfc_key=c9c3e33ebd69e0180bafc54c2ed7f47f44663bf5&corp_code=00631518&bsns_year=2022&reprt_code=11011 (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1007)')))
+2024-02-14 14:50:56,181 - ERROR - YoungCmpny Error: The company(033780) don't have any finstate before 2022!
+2024-02-14 14:50:56,498 - ERROR - YoungCmpny Error: The company(450080) don't have any finstate before 2019!
+2024-02-14 14:50:56,559 - ERROR - HTTPSConnectionPool(host='opendart.fss.or.kr', port=443): Max retries exceeded with url: /api/stockTotqySttus.json?crtfc_key=c9c3e33ebd69e0180bafc54c2ed7f47f44663bf5&corp_code=00126186&bsns_year=2022&reprt_code=11011 (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1007)')))
+2024-02-14 14:51:05,391 - ERROR - YoungCmpny Error: The company(316140) don't have any finstate before 2019!
+2024-02-14 14:51:05,716 - ERROR - YoungCmpny Error: The company(024110) don't have any finstate before 2019!
+2024-02-14 14:51:08,359 - ERROR - YoungCmpny Error: The company(259960) don't have any finstate before 2019!
+2024-02-14 14:51:09,868 - ERROR - YoungCmpny Error: The company(329180) don't have any finstate before 2019!
+2024-02-14 14:51:14,984 - ERROR - YoungCmpny Error: The company(402340) don't have any finstate before 2019!
+2024-02-14 14:51:17,740 - ERROR - YoungCmpny Error: The company(352820) don't have any finstate before 2019!
+2024-02-14 14:51:23,476 - ERROR - YoungCmpny Error: The company(005830) don't have any finstate before 2019!
+2024-02-14 14:51:26,130 - ERROR - YoungCmpny Error: The company(326030) don't have any finstate before 2019!
+2024-02-14 14:51:28,727 - ERROR - YoungCmpny Error: The company(377300) don't have any finstate before 2019!
+2024-02-14 14:51:32,213 - ERROR - 'se'
+2024-02-14 14:51:34,522 - ERROR - could not find "005387"
+2024-02-14 14:51:34,878 - ERROR - YoungCmpny Error: The company(006800) don't have any finstate before 2019!
+2024-02-14 14:51:38,631 - ERROR - YoungCmpny Error: The company(302440) don't have any finstate before 2019!
+2024-02-14 14:51:42,455 - ERROR - 'se'
+2024-02-14 14:51:47,251 - ERROR - YoungCmpny Error: The company(361610) don't have any finstate before 2019!
+2024-02-14 14:51:57,231 - ERROR - Given date not in the dataframe 'sp_data'
+2024-02-14 14:51:58,764 - ERROR - YoungCmpny Error: The company(029780) don't have any finstate before 2019!
+2024-02-14 14:52:03,863 - ERROR - YoungCmpny Error: The company(005940) don't have any finstate before 2019!
+2024-02-14 14:52:06,483 - ERROR - YoungCmpny Error: The company(071050) don't have any finstate before 2019!
+2024-02-14 14:52:06,844 - ERROR - YoungCmpny Error: The company(016360) don't have any finstate before 2019!
+2024-02-14 14:52:06,854 - ERROR - could not find "005385"
+2024-02-14 14:52:10,751 - ERROR - YoungCmpny Error: The company(001450) don't have any finstate before 2019!

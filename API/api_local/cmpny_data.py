@@ -3,9 +3,7 @@ This file works as a connecting bridge between the server layer and this(local) 
 It is equivalent of the 'lib_one.py' file, but for the server layer(django's views.py file)
 The 'lib_one.py' file is exclusivly used by/for the local_api layer.
 '''
-from .import lib_one
-
-from . import custom_exceptions
+from .import lib_one, custom_exceptions
 
 import FinanceDataReader as fdr
 from tabulate import tabulate

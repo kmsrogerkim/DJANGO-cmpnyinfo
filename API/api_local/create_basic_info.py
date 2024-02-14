@@ -3,10 +3,10 @@ from API_KEYS import * #SO DELETE THIS LINE!!!!!
 
 import lib_one, custom_exceptions
 
-from tqdm import tqdm
 import FinanceDataReader as fdr
 from tabulate import tabulate
 import OpenDartReader
+from tqdm import tqdm
 import pandas as pd
 import numpy as np
 import pickle, os
@@ -106,6 +106,15 @@ def GetFinState(dart, BasicInfo, corp_code: str, year: str) -> dict:
 
     return BasicInfo
 
+def GetStockNum(dart, corp_code: str, year: int) -> int:
+    '''
+    Returns: The total number of stock in the market in the given year.
+    '''
+    report = dart.report(corp_code, "주식총수", year, "11011")
+    report = report.loc[(report["se"] == "합계"), "istc_totqy"]
+    stock_num = report.str.replace(",","").astype(int).values[0]
+    return stock_num
+
 def GetReport(dart, corp_code: str, year: int) -> dict:
     '''
     Arguments: OpenDartReader API object, corp_code, year
@@ -145,6 +154,10 @@ def CreateCmpnyBF(BasicInfo: dict, name_code: dict, company_name: str, year_list
     '''
     BasicInfo['Company_Name'] += [company_name] * 6
     BasicInfo["Year"] += lib_one.GetSixYearsList(year=year_list[1])
+
+    stock_num = GetStockNum(dart, name_code[company_name], year_list[1])
+    stock_num = [np.nan] * 5 + [stock_num]
+    BasicInfo["Stock_Num"] += stock_num
     for years in year_list:
         try:
             #HAS TO RUN TWICE BECAUSE EACH API CAN ONLY CALL DATA FROM UP TO 3 YEARS AGO
@@ -217,7 +230,8 @@ def main():
         'ROA' : [],
         'ROE' : [],
         'EPS':[],
-        'PER':[]
+        'PER':[],
+        'Stock_Num':[]
     }
 
     #For logging
