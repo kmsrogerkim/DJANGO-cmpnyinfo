@@ -77,12 +77,14 @@ class Test():
             'Stock_Num':[]
         }
 
-    @pytest.mark.skip(reason="To test fail")
     def test_cbi(self):
         #Excecuting
         cbi.RunLoop(self.BasicInfo, self.name_code, self.company_names, self.year_list, self.dart, self.logger)
 
-        #Checking if the dict is legit
+        #Checking if the dict is legit  
+        assert 606 == len(self.BasicInfo["Company_Name"]) and 20 == len(self.BasicInfo.keys())
+
+        #Creating df_BasicInfo for cbfa
         global df_BasicInfo
         df_BasicInfo = pd.DataFrame(self.BasicInfo)
 
@@ -92,7 +94,6 @@ class Test():
             
             cbi.RunLoop(self.BasicInfo, self.name_code, self.invalid_company_names, self.year_list, self.dart, self.logger)
 
-    @pytest.mark.skip(reason="To test fail")
     def test_cbfa(self):
         global df_BasicInfo
         years = list(df_BasicInfo["Year"][:6])

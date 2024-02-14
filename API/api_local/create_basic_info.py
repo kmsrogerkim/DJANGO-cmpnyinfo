@@ -132,9 +132,7 @@ def GetReport(dart, corp_code: str, cmpnyname: str, year: int) -> dict:
         'PER': [],
     }
     report = dart.report(corp_code, "배당", year, "11011") #GETTING THE STATEMENT OF PROFIT OR LOSS
-    today = lib_one.get_date_today()
-    # sp_data = fdr.DataReader(corp_code, "2017-12-01", today) #GETTING A DATAFRAME OF THE STOCKPRICES OF THE CORP_CODE CORPORATION
-    sp_data = lib_one.get_cmpny_stock(cmpnyname)
+    sp_data = lib_one.get_cmpny_stock(cmpnyname) #GETTING A DATAFRAME OF THE STOCKPRICES OF THE CORP_CODE CORPORATION
 
     #GETTING THE EPS FROM THE STATEMENT OF PROFIT OR LOSS
     EPS = report[(report['se'].str.contains('주당순이익'))]
@@ -186,6 +184,15 @@ def CreateCmpnyBF(BasicInfo: dict, name_code: dict, company_name: str, year_list
     GetRatios(BasicInfo)
     GetProfitStatus(BasicInfo)
 
+def AdjustLen(BasicInfo: dict):
+    '''
+    Adjust everything in BasicInfo to before the iteration.
+    '''
+    length = (len(BasicInfo["Company_Name"]) - 6)
+    for key, val in BasicInfo.items():
+        BasicInfo[key] = val[:length]
+    return BasicInfo
+
 def RunLoop(BasicInfo: dict, name_code: dict, company_names: list, year_list: list, dart, logger):
     '''
     Arguments: all the initialized data
@@ -193,25 +200,27 @@ def RunLoop(BasicInfo: dict, name_code: dict, company_names: list, year_list: li
     '''
     for i in tqdm(range(len(company_names))):
         try:
-            # for key, value in BasicInfo.items():
-            #     if (len(value)) != len(BasicInfo["Company_Name"]):
-            #         print("a")
+            for key, value in BasicInfo.items():
+                if (len(value)) != len(BasicInfo["Company_Name"]):
+                    print("a")
             CreateCmpnyBF(BasicInfo, name_code, company_names[i], year_list, dart, logger)
         except SSLError as e:
             #When I give too much request to dart
             logger.error(f"{e}")
-            for i in range(5):
-                time.sleep(i/2)
+            for j in range(1, 5):
+                BasicInfo = AdjustLen(BasicInfo)
+                time.sleep(j)
                 try:
                     CreateCmpnyBF(BasicInfo, name_code, company_names[i], year_list, dart, logger)
                     break
                 except Exception as e:
                     logger.error(f"{e}")
+                    if j == 4:
+                        start_index = len(BasicInfo["Company_Name"]) - 6
+                        for key, value in BasicInfo.items():
+                            if key != "Company_Name" and key != "Year":
+                                value[start_index:start_index+6] = [np.nan] * 6
                     continue
-            start_index = len(BasicInfo["Company_Name"]) - 6
-            for key, value in BasicInfo.items():
-                if key != "Company_Name" and key != "Year":
-                    value[start_index:start_index+6] = [np.nan] * 6
 
 def main():
     my_api = dart_my_api #FROM THE API_KEYS FILE
