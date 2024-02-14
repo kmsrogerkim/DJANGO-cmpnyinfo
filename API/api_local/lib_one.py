@@ -50,7 +50,7 @@ def get_six_years_list(year: str) -> list:
 
 def get_stock_price(sp_data, date: str) -> dict:
     '''
-    Arguments: a dataframe object containing all the stock information of the company, the date
+    Arguments: a dataframe object containing all the stock information of the company; the date
     Returns: the high/low/close stock price closest from the past to the date given.
     '''
     date = pd.to_datetime(date)

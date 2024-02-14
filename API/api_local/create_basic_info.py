@@ -3,6 +3,8 @@ from API_KEYS import * #SO DELETE THIS LINE!!!!!
 
 import lib_one, custom_exceptions
 
+import time
+
 import FinanceDataReader as fdr
 from tabulate import tabulate
 import OpenDartReader
@@ -185,9 +187,9 @@ def RunLoop(BasicInfo: dict, name_code: dict, company_names: list, year_list: li
     '''
     for i in tqdm(range(len(company_names))):
         try:
-            for key, value in BasicInfo.items():
-                if (len(value)) != len(BasicInfo["Company_Name"]):
-                    print("a")
+            # for key, value in BasicInfo.items():
+            #     if (len(value)) != len(BasicInfo["Company_Name"]):
+            #         print("a")
             CreateCmpnyBF(BasicInfo, name_code, company_names[i], year_list, dart, logger)
         except Exception as e:
             logger.error(f"{e}")
