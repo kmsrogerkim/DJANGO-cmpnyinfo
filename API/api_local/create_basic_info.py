@@ -3,10 +3,13 @@ from API_KEYS import * #SO DELETE THIS LINE!!!!!
 
 import lib_one, custom_exceptions
 
-from tqdm import tqdm
+import time
+from requests.exceptions import SSLError
+
 import FinanceDataReader as fdr
 from tabulate import tabulate
 import OpenDartReader
+from tqdm import tqdm
 import pandas as pd
 import numpy as np
 import pickle, os
@@ -24,7 +27,8 @@ def GetIncreaseRate(BasicInfo):
             BasicInfo[key].append(0)
             for i in range(1, 6):
                 #CALCULATE THE DATA, EXCEPT FOR THE INITIAL ONE
-                BasicInfo[key].append(((BasicInfo[key.replace("_Increase_Rate", '')][i] - BasicInfo[key.replace("_Increase_Rate", '')][i-1]) / BasicInfo[key.replace("_Increase_Rate", '')][i]) * 100)
+                data = (((BasicInfo[key.replace("_Increase_Rate", '')][i] - BasicInfo[key.replace("_Increase_Rate", '')][i-1]) / BasicInfo[key.replace("_Increase_Rate", '')][i]) * 100)
+                BasicInfo[key].append(round(data, 2))
         if key == "Net_Income(added)_Increase_Rate":
             break
 
@@ -106,7 +110,19 @@ def GetFinState(dart, BasicInfo, corp_code: str, year: str) -> dict:
 
     return BasicInfo
 
-def GetReport(dart, corp_code: str, year: int) -> dict:
+def GetStockNum(dart, corp_code: str, year: int) -> int:
+    '''
+    Returns: The total number of stock in the market in the given year.
+    '''
+    try:
+        report = dart.report(corp_code, "주식총수", year, "11011")
+        report = report.loc[(report["se"] == "합계"), "istc_totqy"]
+        stock_num = report.str.replace(",","").astype(int).values[0]
+    except (ValueError, KeyError):
+        raise custom_exceptions.YoungCmpny(corp_code, year)
+    return stock_num
+
+def GetReport(dart, corp_code: str, cmpnyname: str, year: int) -> dict:
     '''
     Arguments: OpenDartReader API object, corp_code, year
     Returns: dictionary obj of key_info containing the EPS and the PER of the year, and two years prior to that.
@@ -116,8 +132,7 @@ def GetReport(dart, corp_code: str, year: int) -> dict:
         'PER': [],
     }
     report = dart.report(corp_code, "배당", year, "11011") #GETTING THE STATEMENT OF PROFIT OR LOSS
-    today = lib_one.GetDateToday()
-    sp_data = fdr.DataReader(corp_code, "2017-12-01", today) #GETTING A DATAFRAME OF THE STOCKPRICES OF THE CORP_CODE CORPORATION
+    sp_data = lib_one.get_cmpny_stock(cmpnyname) #GETTING A DATAFRAME OF THE STOCKPRICES OF THE CORP_CODE CORPORATION
 
     #GETTING THE EPS FROM THE STATEMENT OF PROFIT OR LOSS
     EPS = report[(report['se'].str.contains('주당순이익'))]
@@ -144,26 +159,39 @@ def CreateCmpnyBF(BasicInfo: dict, name_code: dict, company_name: str, year_list
     Returns: Nothing. Modifies BasicInfo for each compnay
     '''
     BasicInfo['Company_Name'] += [company_name] * 6
-    BasicInfo["Year"] += lib_one.GetSixYearsList(year=year_list[1])
-    for years in year_list:
-        try:
+    BasicInfo["Year"] += lib_one.get_six_years_list(year=year_list[1])
+
+    try:
+        stock_num = GetStockNum(dart, name_code[company_name], year_list[1])
+        stock_num = [np.nan] * 5 + [stock_num]
+        BasicInfo["Stock_Num"] += stock_num
+        for years in year_list:
             #HAS TO RUN TWICE BECAUSE EACH API CAN ONLY CALL DATA FROM UP TO 3 YEARS AGO
             GetFinState(dart, BasicInfo, name_code[company_name], year=years)
-            finReport = GetReport(dart, name_code[company_name], years)
+            finReport = GetReport(dart, corp_code=name_code[company_name], cmpnyname=company_name, year=years)
             BasicInfo['EPS'] += finReport['EPS']
             BasicInfo['PER'] += finReport['PER']
-        except custom_exceptions.StockPriceError or custom_exceptions.YoungCmpny as e:
-            logger.error(f"{e}")
-            start_index = len(BasicInfo["Company_Name"])-6
-            for key, value in BasicInfo.items():
-                if key != "Company_Name" and key != "Year":
-                    BasicInfo[key][start_index:start_index+6] = [np.nan] * 6
-            return 0
+    except (custom_exceptions.StockPriceError, custom_exceptions.YoungCmpny) as e:
+        logger.error(f"{e}")
+        start_index = len(BasicInfo["Company_Name"])-6
+        for key, value in BasicInfo.items():
+            if key != "Company_Name" and key != "Year":
+                BasicInfo[key][start_index:start_index+6] = [np.nan] * 6
+        return 0
 
     #COMPLETING THE BasicInfo DICT FOR THOSE DATA THAT CAN BE RAN 6 TIMES
     GetIncreaseRate(BasicInfo)
     GetRatios(BasicInfo)
     GetProfitStatus(BasicInfo)
+
+def AdjustLen(BasicInfo: dict):
+    '''
+    Adjust everything in BasicInfo to before the iteration.
+    '''
+    length = (len(BasicInfo["Company_Name"]) - 6)
+    for key, val in BasicInfo.items():
+        BasicInfo[key] = val[:length]
+    return BasicInfo
 
 def RunLoop(BasicInfo: dict, name_code: dict, company_names: list, year_list: list, dart, logger):
     '''
@@ -176,12 +204,23 @@ def RunLoop(BasicInfo: dict, name_code: dict, company_names: list, year_list: li
                 if (len(value)) != len(BasicInfo["Company_Name"]):
                     print("a")
             CreateCmpnyBF(BasicInfo, name_code, company_names[i], year_list, dart, logger)
-        except Exception as e:
+        except SSLError as e:
+            #When I give too much request to dart
             logger.error(f"{e}")
-            start_index = len(BasicInfo["Company_Name"]) - 6
-            for key, value in BasicInfo.items():
-                if key != "Company_Name" and key != "Year":
-                    value[start_index:start_index+6] = [np.nan] * 6
+            for j in range(1, 5):
+                BasicInfo = AdjustLen(BasicInfo)
+                time.sleep(j)
+                try:
+                    CreateCmpnyBF(BasicInfo, name_code, company_names[i], year_list, dart, logger)
+                    break
+                except Exception as e:
+                    logger.error(f"{e}")
+                    if j == 4:
+                        start_index = len(BasicInfo["Company_Name"]) - 6
+                        for key, value in BasicInfo.items():
+                            if key != "Company_Name" and key != "Year":
+                                value[start_index:start_index+6] = [np.nan] * 6
+                    continue
 
 def main():
     my_api = dart_my_api #FROM THE API_KEYS FILE
@@ -217,7 +256,8 @@ def main():
         'ROA' : [],
         'ROE' : [],
         'EPS':[],
-        'PER':[]
+        'PER':[],
+        'Stock_Num':[]
     }
 
     #For logging

@@ -1,7 +1,7 @@
 from tabulate import tabulate
 from datetime import date
 import pandas as pd
-import time
+import time, os, sys
 
 try:
     from . import custom_exceptions #When running as django
@@ -15,7 +15,7 @@ except Exception as e:
 11011: 사업보고서
 '''
     
-def Timer(func):
+def timer(func):
     def Wrapper(*args, **kwargs):
         print(func.__name__)
         start = time.time()
@@ -26,7 +26,7 @@ def Timer(func):
         return obj
     return Wrapper
 
-def GetDateToday():
+def get_date_today():
     today = date.today()
     x = today.weekday()
     today = pd.to_datetime(today)
@@ -35,10 +35,10 @@ def GetDateToday():
         x -= 1
     return today
 
-def GetLastWeek(today: pd.Timestamp) -> pd.Timestamp:
+def get_last_week(today: pd.Timestamp) -> pd.Timestamp:
     return (today - pd.to_timedelta(7, 'D'))
 
-def GetSixYearsList(year: str) -> list:
+def get_six_years_list(year: str) -> list:
     '''
     Returns: List of strings, past six yrs.
     '''
@@ -50,7 +50,7 @@ def GetSixYearsList(year: str) -> list:
 
 def get_stock_price(sp_data, date: str) -> dict:
     '''
-    Arguments: a dataframe object containing all the stock information of the company, the date
+    Arguments: a dataframe object containing all the stock information of the company; the date
     Returns: the high/low/close stock price closest from the past to the date given.
     '''
     date = pd.to_datetime(date)
@@ -77,3 +77,54 @@ def get_stock_price(sp_data, date: str) -> dict:
             else:
                 date -= pd.to_timedelta(1, 'day')
         return value
+
+def get_cmpny_stock(cmpnyname: str):
+    try:
+        file_path = os.path.join(os.getcwd(), 'API', 'api_local', 'Data', 'Stocks', f"{cmpnyname}_stock.csv")
+        df = pd.read_csv(file_path, encoding="euc-kr", parse_dates=["Date"])
+    except FileNotFoundError:
+        raise custom_exceptions.YoungCmpny(corp_code=cmpnyname, end_year="2022") #When the Stock doesn't match
+    except:
+        file_path = os.path.join(os.getcwd(), 'Data', 'Stocks', f"{cmpnyname}_stock.csv") #When testing
+        df = pd.read_csv(file_path, encoding="euc-kr", parse_dates=["Date"])
+    return df
+
+def display_timer(t: int):
+    '''
+    Prints out the timer into the terminal
+    '''
+    print("\nTimer Starting:")
+    for i in range(t,0,-1):
+        sys.stdout.write(str(i)+' ')
+        sys.stdout.flush()
+        time.sleep(1)
+
+def reattempt_until_failure(max_attempt: int, time: int):
+    '''
+    An decorator function
+    Waits for 30 seconds when the function fails.
+    '''
+    def reattempt_until_failure_function(func):
+        def wrapper(*args, **kwargs):
+            attempts = 0
+            while attempts != max_attempt:
+                if attempts == max_attempt:
+                    raise custom_exceptions.ReAttemptFail(max_attempt)
+                try:
+                    data = func(*args, **kwargs)
+                except custom_exceptions.ResponseError as e:
+                    if e.status_code == 413:
+                        raise custom_exceptions.ReAttemptFail(max_attempt) #IF THE ERROR CODE IS 413, it means a special case where the request in invalid. So for now, just skip it.
+                    print(f"{e.messaage}\nRetrying: {attempts} attempts / {max_attempt} max attempts")
+                    display_timer(time)
+                    attempts += 1
+                    continue
+                except Exception as e:
+                    print(f"{e}\nRetrying: {attempts} attempts / {max_attempt} max attempts")
+                    display_timer(time)
+                    attempts += 1
+                    continue
+                break
+            return data
+        return wrapper
+    return reattempt_until_failure_function

@@ -40,7 +40,7 @@ def RunLoop(company_names: list, name_code: dict, years: list, stock_prices: pd.
     for i in tqdm(range(len(company_names))):
         company_name = company_names[i]
         try:
-            sp_data = fdr.DataReader(name_code[company_name], "2017-12-01", lib_one.GetDateToday()) #GETTING A DATAFRAME OF THE STOCKPRICES OF THE CORP_CODE CORPORATION
+            sp_data = fdr.DataReader(name_code[company_name], "2017-12-01", lib_one.get_date_today()) #GETTING A DATAFRAME OF THE STOCKPRICES OF THE CORP_CODE CORPORATION
             temp_stock_prices = GetStockPrices(sp_data, years)
         except custom_exceptions.StockPriceError or custom_exceptions.YoungCmpny as e:
             logger.error(f"{e}")

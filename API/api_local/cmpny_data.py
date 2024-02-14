@@ -3,9 +3,7 @@ This file works as a connecting bridge between the server layer and this(local) 
 It is equivalent of the 'lib_one.py' file, but for the server layer(django's views.py file)
 The 'lib_one.py' file is exclusivly used by/for the local_api layer.
 '''
-from .import lib_one
-
-from . import custom_exceptions
+from .import lib_one, custom_exceptions
 
 import FinanceDataReader as fdr
 from tabulate import tabulate
@@ -17,7 +15,7 @@ def get_stock_info(cmpnycode: str) -> dict:
     '''
     Returns: yesterday's stock info; high/low in 52 weeks
     '''
-    today = lib_one.GetDateToday()
+    today = lib_one.get_date_today()
     start_date = today - pd.to_timedelta(364, 'D') #52 weeks prior
     sp_data = fdr.DataReader(cmpnycode, start=start_date, end=today) #dataframe
 

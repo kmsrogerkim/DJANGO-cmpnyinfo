@@ -6,11 +6,15 @@ import pytest
 import sys
 sys.path.append('./')
 
+from unittest.mock import patch
+
 import create_basic_info as cbi
 import create_bf_for_analysis as cbfa
 
 #THIS 'API_KEYS' IS A PYTHON FILE OF MINE THAT SOTERS MY PRIVATE API KEYS.
 from API_KEYS import * #SO DELETE THIS LINE!!!!!
+
+from requests.exceptions import SSLError
 
 from tabulate import tabulate
 import OpenDartReader
@@ -46,6 +50,7 @@ class Test():
         #THIS LIST CONTAINS TWO ELEMENTS, THIS YEAR, AND THREE YEARS BEFORE IT.
 
         self.company_names = list(self.name_code.keys())
+        self.invalid_company_names = ["김민승"]
         
         self.logger = Logger()
 
@@ -68,17 +73,26 @@ class Test():
             'ROA' : [],
             'ROE' : [],
             'EPS':[],
-            'PER':[]
+            'PER':[],
+            'Stock_Num':[]
         }
 
-    # @pytest.mark.skip(reason="To test cbfa")
     def test_cbi(self):
         #Excecuting
         cbi.RunLoop(self.BasicInfo, self.name_code, self.company_names, self.year_list, self.dart, self.logger)
 
-        #Checking if the dict is legit
+        #Checking if the dict is legit  
+        assert 606 == len(self.BasicInfo["Company_Name"]) and 20 == len(self.BasicInfo.keys())
+
+        #Creating df_BasicInfo for cbfa
         global df_BasicInfo
         df_BasicInfo = pd.DataFrame(self.BasicInfo)
+
+    def test_SSLError_cbi(self):
+        with patch('create_basic_info.CreateCmpnyBF') as mock_get_b:
+            mock_get_b.side_effect = SSLError
+            
+            cbi.RunLoop(self.BasicInfo, self.name_code, self.invalid_company_names, self.year_list, self.dart, self.logger)
 
     def test_cbfa(self):
         global df_BasicInfo

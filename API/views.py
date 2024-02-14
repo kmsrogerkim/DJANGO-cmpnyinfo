@@ -46,10 +46,9 @@ def get_finstate_sum(request):
     try:
         df = cmpny_data.get_cmpny_df(basic_info_csv, cmpnyname)
     except custom_exceptions.YoungCmpny as e:
-        print(e)
         return Response({"error": "Bad Request: YoungCmpny"}, status=status.HTTP_400_BAD_REQUEST)
     #Dropping unnecessary infos
-    df = df.drop(["Revenue_Profit_Status", "Operating_Income(added)_Profit_Status", "Net_Income(added)_Profit_Status"], axis=1)
+    df = df.drop(["Revenue_Profit_Status", "Operating_Income(added)_Profit_Status", "Net_Income(added)_Profit_Status", "Stock_Num"], axis=1)
 
     #Convert df to dict
     finstate_sum = df.to_dict(orient="records")
@@ -68,7 +67,6 @@ def get_graph_data(request):
         ratio_df = number_df[["Debt_Equity_Ratio", "PER", "ROA", "ROE"]]
         number_df = number_df[["Year", "Total_Assets", "Total_Debt", "Total_Equity", "Revenue", "Operating_Income(added)", "Net_Income(added)"]]
     except custom_exceptions.YoungCmpny as e:
-        print(e)
         return Response({"error": "Bad Request: YoungCmpny"}, status=status.HTTP_400_BAD_REQUEST)
     
     if "Profit" not in boxPlot_df:
