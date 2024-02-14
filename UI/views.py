@@ -1,11 +1,9 @@
 from django.shortcuts import render, redirect
-from django.contrib import messages
 
 from tabulate import tabulate
 import plotly.graph_objects as go
-import plotly.express as px
 import pandas as pd
-import requests, json
+import requests
 
 def home(request):
     if request.method == 'POST':

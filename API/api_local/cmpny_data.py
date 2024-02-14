@@ -15,7 +15,7 @@ def get_stock_info(cmpnycode: str) -> dict:
     '''
     Returns: yesterday's stock info; high/low in 52 weeks
     '''
-    today = lib_one.GetDateToday()
+    today = lib_one.get_date_today()
     start_date = today - pd.to_timedelta(364, 'D') #52 weeks prior
     sp_data = fdr.DataReader(cmpnycode, start=start_date, end=today) #dataframe
 
