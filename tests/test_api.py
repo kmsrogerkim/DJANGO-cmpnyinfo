@@ -9,22 +9,33 @@ class Request():
         self.factory = APIRequestFactory()
         self.request = self.factory.post(url, data)
 
+# @pytest.mark.skip
 def test_get_basic_info():
     request = Request("api/basicInfo/", {"cmpnyname" : "삼성전자"}).request
-    #Action
+
     response = views.get_basic_info(request)
     response = response.data
 
-    #Assert
-    condition = (response["cmpnyname"] == "삼성전자" and len(list(response.keys())) == 6 and isinstance(response["Yesterday"], np.int64))
-    assert condition == True
+    assert response["cmpnyname"] == "삼성전자" and len(list(response.keys())) == 6 and isinstance(response["Yesterday"], np.int64)
 
+# @pytest.mark.skip
 def test_fail_get_basic_info():
     '''
     The api must return 400 when the cmpnyname does not exist
     '''
     request = Request("api/basicInfo/", {"cmpnyname" : "김민승"}).request
-    #Action
     response = views.get_basic_info(request)
-    #Assert
+    assert response.status_code == 400
+
+def test_get_finstate_sum():
+    request = Request("api/finstateSum/", {"cmpnyname" : "삼성전자"}).request
+
+    response = views.get_finstate_sum(request)
+    response = response.data
+
+    assert len(response) == 6 and len(response[0].keys()) == 16
+
+def test_fail_get_finstate_sum():
+    request = Request("api/finstateSum/", {"cmpnyname" : "삼성전자우"}).request
+    response = views.get_finstate_sum(request)
     assert response.status_code == 400
