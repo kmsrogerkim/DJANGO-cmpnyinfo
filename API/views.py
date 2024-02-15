@@ -33,6 +33,15 @@ def format_large_number(number: int) -> str:
     formatted_number = '{:.1f}{}'.format(number, suffixes[magnitude])
     return formatted_number
 
+def convert_finstate_sum_large_num(finstate_sum: list):
+    '''
+    Argument: list of dictionaries
+    '''
+    for dicts in finstate_sum:
+        for key, val in dicts.items():
+            if isinstance(val, float):
+                dicts[key] = format_large_number(val)
+
 @api_view(['POST'])
 def get_basic_info(request):
     '''
@@ -67,6 +76,7 @@ def get_finstate_sum(request):
 
     #Convert df to dict
     finstate_sum = df.to_dict(orient="records")
+    convert_finstate_sum_large_num(finstate_sum) #format large numbers (sth like 115000000000 to 11.5T)
     return Response(finstate_sum)
 
 @api_view(['POST'])
