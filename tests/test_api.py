@@ -16,7 +16,7 @@ def test_get_basic_info():
     response = views.get_basic_info(request)
     response = response.data
 
-    assert response["cmpnyname"] == "삼성전자" and len(list(response.keys())) == 6 and isinstance(response["Yesterday"], np.int64)
+    assert response["cmpnyname"] == "삼성전자" and len(list(response.keys())) == 7 and isinstance(response["Yesterday"], np.int64)
 
 def test_fail_get_basic_info():
     '''

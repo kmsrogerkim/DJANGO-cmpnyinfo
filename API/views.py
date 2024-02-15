@@ -22,6 +22,17 @@ file_path = os.path.join(os.getcwd(), 'API', 'api_local', 'Data', 'basic_info_fo
 cols = ["Company_Name", "Year", "Current_Stock", "Future_Stock", "Operating_Income(added)_Profit_Status","Net_Income(added)_Profit_Status" ]
 bf_analysis_csv = pd.read_csv(file_path, usecols=cols, encoding='euc-kr')
 
+def format_large_number(number: int) -> str:
+    suffixes = ['', 'k', 'M', 'B', 'T']
+    magnitude = 0
+
+    while abs(number) >= 1000 and magnitude < len(suffixes) - 1:
+        magnitude += 1
+        number /= 1000
+
+    formatted_number = '{:.1f}{}'.format(number, suffixes[magnitude])
+    return formatted_number
+
 @api_view(['POST'])
 def get_basic_info(request):
     '''
@@ -36,6 +47,10 @@ def get_basic_info(request):
 
     basic_info = cmpny_data.get_stock_info(cmpnycode) #dict
     basic_info["cmpnyname"] = cmpnyname #setting the company name to the posted company name
+
+    stock_num = basic_info_csv.loc[(basic_info_csv["Company_Name"] == cmpnyname), "Stock_Num"].iloc[5] #int
+    market_cap = format_large_number(stock_num * basic_info["Yesterday"])
+    basic_info["market_cap"] = market_cap 
     return Response(basic_info)
 
 @api_view(['POST'])
