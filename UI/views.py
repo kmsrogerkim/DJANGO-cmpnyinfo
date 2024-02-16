@@ -58,6 +58,9 @@ def cmpny(request, cmpnyname):
 def not_found(request):
     return render(request, "not_found.html")
 
+def about(request):
+    return render(request, "about.html")
+
 def draw_line_graph(x: list, graph_data:dict):
     traces = []
     for key, val in graph_data.items():
