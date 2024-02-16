@@ -14,6 +14,10 @@
     border-radius: 10px;
 }
 
+.search-header form {
+    flex-grow: 1;
+}
+
 .search-header input{
     background: transparent;
     width: 100%;
