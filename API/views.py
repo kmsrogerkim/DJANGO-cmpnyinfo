@@ -14,6 +14,7 @@ import pickle, os
 file_path = os.path.join(os.getcwd(), 'API', 'api_local', 'Data', 'name_code.pkl') 
 with open(file_path, 'rb') as f:
     name_code = pickle.load(f)
+cmpny_list = list(name_code.keys())
 #Getting basic_info.csv
 file_path = os.path.join(os.getcwd(), 'API', 'api_local', 'Data', 'basic_info.csv') 
 basic_info_csv = pd.read_csv(file_path, encoding='euc-kr')
@@ -103,4 +104,10 @@ def get_graph_data(request):
     "ratio_data": ratio_df.to_dict(orient="list"),
     "number_data": number_df.to_dict(orient="list"),
     }
+    return Response(response)
+
+@api_view(['GET'])
+def get_cmpny_list(request):
+    global cmpny_list
+    response = {"cmpny_list":cmpny_list}
     return Response(response)

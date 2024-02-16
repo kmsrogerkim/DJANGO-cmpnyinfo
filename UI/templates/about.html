@@ -24,7 +24,12 @@
                 <p>The entire journey of creating this website is recorded in my <a href="https://RogerKimJazzLover.github.io" target="_blank">website/blog!</a></p>
             </div>
             <div class="list">
-                
+                <h1>Supported Companies</h1>
+                <br>
+                <br>
+                {% for cmpnys in cmpny_list %}
+                    <p>{{ cmpnys }}</p>
+                {% endfor %}
             </div>
         </div>
     </body>

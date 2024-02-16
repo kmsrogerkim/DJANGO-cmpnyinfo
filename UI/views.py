@@ -59,7 +59,9 @@ def not_found(request):
     return render(request, "not_found.html")
 
 def about(request):
-    return render(request, "about.html")
+    cmpny_list = requests.get("http://localhost:8000/api/cmpnylist")
+    cmpny_list = cmpny_list.json()
+    return render(request, "about.html", {"cmpny_list":cmpny_list["cmpny_list"]})
 
 def draw_line_graph(x: list, graph_data:dict):
     traces = []
