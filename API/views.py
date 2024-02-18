@@ -53,7 +53,7 @@ def get_basic_info(request):
     try:
         cmpnycode = name_code[cmpnyname]
     except KeyError:
-        return Response({"error": "Bad Request: cmpnyname not in list"}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"error": "NOT FOUND: cmpnyname not in list"}, status=status.HTTP_404_NOT_FOUND)
 
     basic_info = cmpny_data.get_stock_info(cmpnycode) #dict
     basic_info["cmpnyname"] = cmpnyname #setting the company name to the posted company name
@@ -70,8 +70,8 @@ def get_finstate_sum(request):
 
     try:
         df = cmpny_data.get_cmpny_df(basic_info_csv, cmpnyname)
-    except custom_exceptions.YoungCmpny as e:
-        return Response({"error": "Bad Request: YoungCmpny"}, status=status.HTTP_400_BAD_REQUEST)
+    except custom_exceptions.YoungCmpny:
+        return Response({"error": "BAD REQUEST: YoungCmpny"}, status=status.HTTP_400_BAD_REQUEST)
     #Dropping unnecessary infos
     df = df.drop(["Revenue_Profit_Status", "Operating_Income(added)_Profit_Status", "Net_Income(added)_Profit_Status", "Stock_Num"], axis=1)
 
@@ -93,7 +93,7 @@ def get_graph_data(request):
         ratio_df = number_df[["Debt_Equity_Ratio", "PER", "ROA", "ROE"]]
         number_df = number_df[["Year", "Total_Assets", "Total_Debt", "Total_Equity", "Revenue", "Operating_Income(added)", "Net_Income(added)"]]
     except custom_exceptions.YoungCmpny as e:
-        return Response({"error": "Bad Request: YoungCmpny"}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"error": "BAD REQUEST: YoungCmpny"}, status=status.HTTP_400_BAD_REQUEST)
     
     if "Profit" not in boxPlot_df:
         boxPlot_df.loc[:, ["Profit"]] = (boxPlot_df["Current_Stock"] - boxPlot_df["Future_Stock"]) / boxPlot_df["Current_Stock"] * 100

@@ -20,11 +20,11 @@ def test_get_basic_info():
 
 def test_fail_get_basic_info():
     '''
-    The api must return 400 when the cmpnyname does not exist
+    The api must return 404 when the cmpnyname does not exist
     '''
     request = Request("api/basicInfo/", {"cmpnyname" : "김민승"}).request
     response = views.get_basic_info(request)
-    assert response.status_code == 400
+    assert response.status_code == 404
 
 def test_get_finstate_sum():
     request = Request("api/finstateSum/", {"cmpnyname" : "삼성전자"}).request
