@@ -15,6 +15,8 @@ file_path = os.path.join(os.getcwd(), 'API', 'api_local', 'Data', 'name_code.pkl
 with open(file_path, 'rb') as f:
     name_code = pickle.load(f)
 cmpny_list = list(name_code.keys())
+code_name = {value: key for key, value in name_code.items()}
+
 #Getting basic_info.csv
 file_path = os.path.join(os.getcwd(), 'API', 'api_local', 'Data', 'basic_info.csv') 
 basic_info_csv = pd.read_csv(file_path, encoding='euc-kr')
@@ -43,18 +45,36 @@ def convert_finstate_sum_large_num(finstate_sum: list):
             if isinstance(val, float):
                 dicts[key] = format_large_number(val)
 
+def initialize_cmpnyname_cmpnycode(data: str) -> str:
+    '''
+    Argument: data could be 1.name of company ("삼성전자") 2.corp code of company("005930")
+    returns: 1.cmpnyname 2.cmpnycode; 1.None 2.None if 404
+    '''
+    if data.isdigit():
+        if data not in code_name:
+            return None, None
+        cmpnycode = data
+        cmpnyname = code_name[cmpnycode]
+        return cmpnyname, cmpnycode
+    else:
+        try:
+            cmpnycode = name_code[data]
+            return data, cmpnycode
+        except KeyError:
+            return None, None
+
 @api_view(['POST'])
 def get_basic_info(request):
     '''
     Returns: basic stock info of the cmpny
     '''
     post_data = request.data #dict
-    cmpnyname = post_data["cmpnyname"]
-    try:
-        cmpnycode = name_code[cmpnyname]
-    except KeyError:
-        return Response({"error": "NOT FOUND: cmpnyname not in list"}, status=status.HTTP_404_NOT_FOUND)
+    cmpny_info = post_data["cmpnyname"]
 
+    cmpnyname, cmpnycode = initialize_cmpnyname_cmpnycode(cmpny_info)
+    if not cmpnyname:
+        return Response({"error": "NOT FOUND: cmpnyname not in list"}, status=status.HTTP_404_NOT_FOUND)
+    
     basic_info = cmpny_data.get_stock_info(cmpnycode) #dict
     basic_info["cmpnyname"] = cmpnyname #setting the company name to the posted company name
 
@@ -66,7 +86,9 @@ def get_basic_info(request):
 @api_view(['POST'])
 def get_finstate_sum(request):
     post_data = request.data #dict
-    cmpnyname = post_data["cmpnyname"]
+    cmpny_info = post_data["cmpnyname"]
+
+    cmpnyname, cmpnycode = initialize_cmpnyname_cmpnycode(cmpny_info)
 
     try:
         df = cmpny_data.get_cmpny_df(basic_info_csv, cmpnyname)
@@ -83,7 +105,9 @@ def get_finstate_sum(request):
 @api_view(['POST'])
 def get_graph_data(request):
     post_data = request.data #dict
-    cmpnyname = post_data["cmpnyname"]
+    cmpny_info = post_data["cmpnyname"]
+
+    cmpnyname, cmpnycode = initialize_cmpnyname_cmpnycode(cmpny_info)
 
     try:
         #Initializing dfs
@@ -92,7 +116,7 @@ def get_graph_data(request):
         number_df = cmpny_data.get_cmpny_df(basic_info_csv, cmpnyname)
         ratio_df = number_df[["Debt_Equity_Ratio", "PER", "ROA", "ROE"]]
         number_df = number_df[["Year", "Total_Assets", "Total_Debt", "Total_Equity", "Revenue", "Operating_Income(added)", "Net_Income(added)"]]
-    except custom_exceptions.YoungCmpny as e:
+    except custom_exceptions.YoungCmpny:
         return Response({"error": "BAD REQUEST: YoungCmpny"}, status=status.HTTP_400_BAD_REQUEST)
     
     if "Profit" not in boxPlot_df:
