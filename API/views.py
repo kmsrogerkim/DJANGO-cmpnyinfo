@@ -45,23 +45,23 @@ def convert_finstate_sum_large_num(finstate_sum: list):
             if isinstance(val, float):
                 dicts[key] = format_large_number(val)
 
-def initialize_cmpnyname_cmpnycode(data: str) -> str:
+def initialize_cmpnyname(data: str) -> str:
     '''
-    Argument: data could be 1.name of company ("삼성전자") 2.corp code of company("005930")
-    returns: 1.cmpnyname 2.cmpnycode; 1.None 2.None if 404
+    Argument: data could be 1.name of company ("삼성전자") OR 2.corp code of company("005930")
+    returns: 1.cmpnyname; 1.None if 404
     '''
     if data.isdigit():
-        if data not in code_name:
-            return None, None
-        cmpnycode = data
-        cmpnyname = code_name[cmpnycode]
-        return cmpnyname, cmpnycode
+        try:
+            cmpnyname = code_name[data]
+            return cmpnyname
+        except KeyError:
+            return None
     else:
         try:
             cmpnycode = name_code[data]
-            return data, cmpnycode
+            return data
         except KeyError:
-            return None, None
+            return None
 
 @api_view(['POST'])
 def get_basic_info(request):
@@ -71,9 +71,10 @@ def get_basic_info(request):
     post_data = request.data #dict
     cmpny_info = post_data["cmpnyname"]
 
-    cmpnyname, cmpnycode = initialize_cmpnyname_cmpnycode(cmpny_info)
+    cmpnyname = initialize_cmpnyname(cmpny_info)
     if not cmpnyname:
         return Response({"error": "NOT FOUND: cmpnyname not in list"}, status=status.HTTP_404_NOT_FOUND)
+    cmpnycode = name_code[cmpnyname]
     
     basic_info = cmpny_data.get_stock_info(cmpnycode) #dict
     basic_info["cmpnyname"] = cmpnyname #setting the company name to the posted company name
@@ -88,7 +89,7 @@ def get_finstate_sum(request):
     post_data = request.data #dict
     cmpny_info = post_data["cmpnyname"]
 
-    cmpnyname, cmpnycode = initialize_cmpnyname_cmpnycode(cmpny_info)
+    cmpnyname = initialize_cmpnyname(cmpny_info)
 
     try:
         df = cmpny_data.get_cmpny_df(basic_info_csv, cmpnyname)
@@ -107,7 +108,7 @@ def get_graph_data(request):
     post_data = request.data #dict
     cmpny_info = post_data["cmpnyname"]
 
-    cmpnyname, cmpnycode = initialize_cmpnyname_cmpnycode(cmpny_info)
+    cmpnyname = initialize_cmpnyname(cmpny_info)
 
     try:
         #Initializing dfs

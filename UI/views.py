@@ -58,7 +58,7 @@ def cmpny(request, cmpnyname):
     return render(request, "cmpny.html", {"basic_info":basic_info, "finstate_sum":finstate_sum, "keys":keys, "box_plot":box_plot, "number_graph":number_graph, "ratio_graph":ratio_graph})
 
 def about(request):
-    cmpny_list = requests.get("http://localhost:8000/api/cmpnylist")
+    cmpny_list = requests.get("http://localhost:8000/api/cmpnyList")
     cmpny_list = cmpny_list.json()
     return render(request, "about.html", {"cmpny_list":cmpny_list["cmpny_list"]})
 
