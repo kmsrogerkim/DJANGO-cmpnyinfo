@@ -20,8 +20,10 @@ def cmpny(request, cmpnyname):
     basic_info = requests.post("http://localhost:8000/api/basicInfo", data={"cmpnyname":cmpnyname})
     finstate_sum = requests.post("http://localhost:8000/api/finstateSum", data={"cmpnyname":cmpnyname})
     graph_data = requests.post("http://localhost:8000/api/graphData", data={"cmpnyname":cmpnyname})
-    if basic_info.status_code != 200 or finstate_sum.status_code != 200 or graph_data.status_code != 200:
+    if basic_info.status_code == 404:
         return redirect("not_found")
+    elif basic_info.status_code != 200 or finstate_sum.status_code != 200 or graph_data.status_code != 200:
+        return redirect("error-page")
     basic_info = basic_info.json() #dict
     finstate_sum = finstate_sum.json() #dict
     keys = list(finstate_sum[0].keys())
@@ -55,9 +57,6 @@ def cmpny(request, cmpnyname):
 
     return render(request, "cmpny.html", {"basic_info":basic_info, "finstate_sum":finstate_sum, "keys":keys, "box_plot":box_plot, "number_graph":number_graph, "ratio_graph":ratio_graph})
 
-def not_found(request):
-    return render(request, "not_found.html")
-
 def about(request):
     cmpny_list = requests.get("http://localhost:8000/api/cmpnylist")
     cmpny_list = cmpny_list.json()
@@ -70,3 +69,9 @@ def draw_line_graph(x: list, graph_data:dict):
     layout = go.Layout(xaxis=dict(title='Year'), yaxis=dict(title='Stats'), width=550)
     fig = go.Figure(data=traces, layout=layout)
     return fig.to_html()
+
+def not_found(request):
+    return render(request, "not_found.html")
+
+def error_page(request):
+    return render(request, "error_page.html")

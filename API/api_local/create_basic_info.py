@@ -21,14 +21,17 @@ def GetIncreaseRate(BasicInfo):
     Returns: NOTHING. Only modifies the dict and completes the Increase_Rate columns
     '''
     triger = False
+    start_index = len(BasicInfo["Company_Name"]) - 6
     for key in BasicInfo:
         if key == "Revenue_Increase_Rate" or triger:
             triger = True
             BasicInfo[key].append(0)
             for i in range(1, 6):
                 #CALCULATE THE DATA, EXCEPT FOR THE INITIAL ONE
-                data = (((BasicInfo[key.replace("_Increase_Rate", '')][i] - BasicInfo[key.replace("_Increase_Rate", '')][i-1]) / BasicInfo[key.replace("_Increase_Rate", '')][i]) * 100)
-                BasicInfo[key].append(round(data, 2))
+                current_value = BasicInfo[key.replace("_Increase_Rate", '')][start_index+i]
+                past_value = BasicInfo[key.replace("_Increase_Rate", '')][start_index+i-1]
+                increase_rate = (((current_value - past_value) / current_value) * 100)
+                BasicInfo[key].append(round(increase_rate, 2))
         if key == "Net_Income(added)_Increase_Rate":
             break
 
@@ -67,6 +70,7 @@ def GetProfitStatus(BasicInfo: dict):
         if keys == "Net_Income(added)_Profit_Status":
             break
 
+@lib_one.timer
 def GetNumbers(finstate, BasicInfo: dict) -> dict:
     '''
     Arguments: a dart finstate API object, BasicInfo dict
