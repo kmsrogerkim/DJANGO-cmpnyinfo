@@ -50,7 +50,7 @@ def initialize_cmpnyname(data: str) -> str:
     Argument: data could be 1.name of company ("삼성전자") OR 2.corp code of company("005930")
     returns: 1.cmpnyname; 1.None if 404
     '''
-    if data.isdigit():
+    if data.isdigit(): #if it is corp_code
         try:
             cmpnyname = code_name[data]
             return cmpnyname
@@ -58,8 +58,8 @@ def initialize_cmpnyname(data: str) -> str:
             return None
     else:
         try:
-            cmpnycode = name_code[data]
-            return data
+            cmpnycode = name_code[data] #doing this to check if the cmpny is supported or not
+            return data #return cmpnyname anyways
         except KeyError:
             return None
 
@@ -72,7 +72,7 @@ def get_basic_info(request):
     cmpny_info = post_data["cmpnyname"]
 
     cmpnyname = initialize_cmpnyname(cmpny_info)
-    if not cmpnyname:
+    if not cmpnyname: #If the cmpny is not in the list (404)
         return Response({"error": "NOT FOUND: cmpnyname not in list"}, status=status.HTTP_404_NOT_FOUND)
     cmpnycode = name_code[cmpnyname]
     
@@ -113,7 +113,6 @@ def get_graph_data(request):
     try:
         #Initializing dfs
         boxPlot_df = cmpny_data.get_cmpny_df(bf_analysis_csv, cmpnyname)
-
         number_df = cmpny_data.get_cmpny_df(basic_info_csv, cmpnyname)
         ratio_df = number_df[["Debt_Equity_Ratio", "PER", "ROA", "ROE"]]
         number_df = number_df[["Year", "Total_Assets", "Total_Debt", "Total_Equity", "Revenue", "Operating_Income(added)", "Net_Income(added)"]]
