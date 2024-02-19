@@ -29,7 +29,7 @@
     height: 16px;
 }
 
-@media screen and (min-width: 430px) {
+@media screen and (min-width: 433px) {
     .search-header {
         background-color: #c1c1c1;
         position: relative;
