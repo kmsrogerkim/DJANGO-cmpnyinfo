@@ -8,6 +8,54 @@
     height: 100%;
   }
   
+  .home .search-bar-div {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    max-width: 768px;
+  }
+
+  .home .get-started {
+    background-color: white;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 52px;
+    margin-top: 10px;
+    width: 96%;
+    height: 30%;
+    margin: 10px;
+    margin-top: 20px;
+    border: 1px solid grey;
+    box-shadow: 5px 10px 15px;
+    max-width: 768px;
+  }
+
+  .home .bottom {
+    position: relative;
+    width: 100%;
+    max-width: 768px;
+    top: 70px;
+    margin-left: 20px;
+    font-style: italic;
+    font-weight: bold;
+  }
+  
+  @media screen and (max-width: 433px) {
+    .home .bottom {
+      position: relative;
+      width: 100%;
+      max-width: 768px;
+      top: 70px;
+      margin-left: 10px;
+      font-size: 11px;
+      font-style: italic;
+      font-weight: bold;
+    }
+  }
+
   .home .main-body-wrapper {
     width: 100%;
     max-width: 768px;
@@ -22,13 +70,6 @@
       position: relative;
       top: 125px;
     }
-  }
-
-  .home .search-bar-div {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    max-width: 768px;
   }
 
   .home .main-body-wrapper .welcome {
@@ -69,47 +110,8 @@
 
   .home .line-4 {
     width: 2px;
-    height: 250px;
+    height: 230px;
     margin-left: 10px;
     position: relative;
     object-fit: cover;
-  }
-
-  .home .div {
-    background-color: #ffffff;
-    width: 100%;
-    height: 100%;
-    position: relative;
-    max-width: 768px;
-  }
-
-  .home .main-page {
-    max-width: 768px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .home .bottom {
-    position: relative;
-    width: 100%;
-    max-width: 768px;
-    top: 125px;
-    margin-left: 20px;
-    font-style: italic;
-    font-weight: bold;
-  }
-  
-  @media screen and (max-width: 433px) {
-    .home .bottom {
-      position: relative;
-      width: 100%;
-      max-width: 768px;
-      top: 150px;
-      margin-left: 10px;
-      font-size: 11px;
-      font-style: italic;
-      font-weight: bold;
-    }
   }
