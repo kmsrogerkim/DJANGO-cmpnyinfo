@@ -63,15 +63,12 @@ def initialize_cmpnyname(data: str) -> str:
         except KeyError:
             return None
 
-@api_view(['POST'])
-def get_basic_info(request):
+@api_view(['GET'])
+def get_basic_info(request, cmpnyData):
     '''
     Returns: basic stock info of the cmpny
     '''
-    post_data = request.data #dict
-    cmpny_info = post_data["cmpnyname"]
-
-    cmpnyname = initialize_cmpnyname(cmpny_info)
+    cmpnyname = initialize_cmpnyname(cmpnyData)
     if not cmpnyname: #If the cmpny is not in the list (404)
         return Response({"error": "NOT FOUND: cmpnyname not in list"}, status=status.HTTP_404_NOT_FOUND)
     cmpnycode = name_code[cmpnyname]
@@ -84,12 +81,9 @@ def get_basic_info(request):
     basic_info["market_cap"] = market_cap 
     return Response(basic_info)
 
-@api_view(['POST'])
-def get_finstate_sum(request):
-    post_data = request.data #dict
-    cmpny_info = post_data["cmpnyname"]
-
-    cmpnyname = initialize_cmpnyname(cmpny_info)
+@api_view(['GET'])
+def get_finstate_sum(request, cmpnyData):
+    cmpnyname = initialize_cmpnyname(cmpnyData)
 
     try:
         df = cmpny_data.get_cmpny_df(basic_info_csv, cmpnyname)
@@ -103,12 +97,9 @@ def get_finstate_sum(request):
     convert_finstate_sum_large_num(finstate_sum) #format large numbers (sth like 115000000000 to 11.5T)
     return Response(finstate_sum)
 
-@api_view(['POST'])
-def get_graph_data(request):
-    post_data = request.data #dict
-    cmpny_info = post_data["cmpnyname"]
-
-    cmpnyname = initialize_cmpnyname(cmpny_info)
+@api_view(['GET'])
+def get_graph_data(request, cmpnyData):
+    cmpnyname = initialize_cmpnyname(cmpnyData)
 
     try:
         #Initializing dfs
