@@ -1,0 +1,11 @@
+#all the files named __pycache__
+**/__pycache__/
+
+#all the files named docs_caceh
+**/docs_cache/
+
+*.pyc
+.pytest_cache
+
+.git
+.gitignore
