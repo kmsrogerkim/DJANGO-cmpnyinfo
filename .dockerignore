@@ -9,3 +9,10 @@
 
 .git
 .gitignore
+
+#everything in api_local directory EXCEPT Data, cmpny_data, custom_exceptions and lib_one
+API/api_local/*
+!API/api_local/Data/
+!API/api_local/lib_one.py
+!API/api_local/cmpny_data.py
+!API/api_local/custom_exceptions.py
