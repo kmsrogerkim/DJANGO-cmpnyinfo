@@ -1,4 +1,3 @@
-from tabulate import tabulate
 from datetime import date
 import pandas as pd
 import time, os, sys

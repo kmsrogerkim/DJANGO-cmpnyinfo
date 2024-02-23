@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 
-from tabulate import tabulate
 import plotly.graph_objects as go
 import pandas as pd
 import requests

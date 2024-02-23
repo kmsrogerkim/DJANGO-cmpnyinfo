@@ -5,9 +5,7 @@ from rest_framework import status
 from .api_local import cmpny_data
 from .api_local import custom_exceptions
 
-from tabulate import tabulate
 import pandas as pd
-import numpy as np
 import pickle, os
 
 #Getting name_code.pkl

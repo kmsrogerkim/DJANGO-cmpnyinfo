@@ -6,10 +6,8 @@ The 'lib_one.py' file is exclusivly used by/for the local_api layer.
 from .import lib_one, custom_exceptions
 
 import FinanceDataReader as fdr
-from tabulate import tabulate
 import pandas as pd
 import pandas as pd
-import numpy as np
 
 def get_stock_info(cmpnycode: str) -> dict:
     '''
