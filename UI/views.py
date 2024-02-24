@@ -7,22 +7,21 @@ import requests
 def home(request):
     if request.method == 'POST':
         cmpnyname = request.POST.get("cmpnyname")
-        print("WORKS TILL HERE: home-if")
         return redirect("cmpny", cmpnyname=cmpnyname)
-    print("WORKS TILL HERE: home")
     return render(request, "home.html")
 
 def cmpny(request, cmpnyname):
-    print("WORKS TILL HERE: cmpny-got the request")
     if request.method == 'POST':
         cmpnyname = request.POST.get("cmpnyname")
         return redirect("cmpny", cmpnyname=cmpnyname)
     
     #Calling API
     basic_info = requests.get(f"http://localhost:8000/api/basicInfo/{cmpnyname}")
+    print("WORKS HERE1")
     if basic_info.status_code == 404:
         return redirect("not_found")
     finstate_sum = requests.get(f"http://localhost:8000/api/finstateSum/{cmpnyname}")
+    print("WORKS HERE2")
     graph_data = requests.get(f"http://localhost:8000/api/graphData/{cmpnyname}")
     print("WORKS TILL HERE!")
     if basic_info.status_code != 200 or finstate_sum.status_code != 200 or graph_data.status_code != 200:
@@ -31,6 +30,7 @@ def cmpny(request, cmpnyname):
     finstate_sum = finstate_sum.json() #dict
     keys = list(finstate_sum[0].keys())
     graph_data = graph_data.json() #dict
+    print("IF it works untill here...")
 
     #BOX PLOT
     box_plot_data = graph_data["box_plot_data"]
