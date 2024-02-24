@@ -2,6 +2,7 @@ version: '3'
 
 services:
   django_gunicorn:
+    image: django_gunicorn:1.2
     volumes:
       - ./static:/static
     env_file:
@@ -11,6 +12,7 @@ services:
     ports:
       - "8000:8000"
   nginx:
+    image: nginx:1.2
     volumes:
       - ./static:/static
     build: 

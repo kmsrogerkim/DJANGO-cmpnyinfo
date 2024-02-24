@@ -103,6 +103,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+#For nginx
+CSRF_TRUSTED_ORIGINS=["http://localhost"] 
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/

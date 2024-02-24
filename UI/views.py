@@ -7,10 +7,13 @@ import requests
 def home(request):
     if request.method == 'POST':
         cmpnyname = request.POST.get("cmpnyname")
+        print("WORKS TILL HERE: home-if")
         return redirect("cmpny", cmpnyname=cmpnyname)
+    print("WORKS TILL HERE: home")
     return render(request, "home.html")
 
 def cmpny(request, cmpnyname):
+    print("WORKS TILL HERE: cmpny-got the request")
     if request.method == 'POST':
         cmpnyname = request.POST.get("cmpnyname")
         return redirect("cmpny", cmpnyname=cmpnyname)
@@ -21,6 +24,7 @@ def cmpny(request, cmpnyname):
         return redirect("not_found")
     finstate_sum = requests.get(f"http://localhost:8000/api/finstateSum/{cmpnyname}")
     graph_data = requests.get(f"http://localhost:8000/api/graphData/{cmpnyname}")
+    print("WORKS TILL HERE!")
     if basic_info.status_code != 200 or finstate_sum.status_code != 200 or graph_data.status_code != 200:
         return redirect("error-page")
     basic_info = basic_info.json() #dict
