@@ -104,7 +104,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 #For nginx
-CSRF_TRUSTED_ORIGINS=["http://localhost"] 
+CSRF_TRUSTED_ORIGINS=["http://localhost", "http://192.168.45.16"] 
 
 
 # Internationalization
@@ -122,7 +122,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-# STATIC_ROOT = "static/"
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [

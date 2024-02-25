@@ -2,7 +2,7 @@ version: '3'
 
 services:
   dj-gunicorn:
-    image: dj-gunicorn:1.0
+    image: dj-gunicorn:1.1
     volumes:
       - ./static:/static
     env_file:
@@ -12,7 +12,7 @@ services:
     ports:
       - "8000:8000"
   nginx:
-    image: nginx:2.0
+    image: nginx:2.1
     volumes:
       - ./static:/static
     build: 
