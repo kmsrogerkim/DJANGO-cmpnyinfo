@@ -9,6 +9,8 @@ djangorestframework==3.14.0
 exceptiongroup==1.2.0
 finance-datareader==0.9.66
 fonttools==4.47.2
+gevent==24.2.1
+greenlet==3.0.3
 gunicorn==21.2.0
 idna==3.6
 iniconfig==2.0.0
@@ -39,3 +41,5 @@ tqdm==4.66.1
 typing_extensions==4.9.0
 tzdata==2023.4
 urllib3==2.1.0
+zope.event==5.0
+zope.interface==6.2

@@ -1,8 +1,8 @@
 version: '3'
 
 services:
-  django:
-    image: django:1.0
+  dj-gunicorn:
+    image: dj-gunicorn:1.0
     volumes:
       - ./static:/static
     env_file:
@@ -12,7 +12,7 @@ services:
     ports:
       - "8000:8000"
   nginx:
-    image: nginx:1.0
+    image: nginx:2.0
     volumes:
       - ./static:/static
     build: 
@@ -20,7 +20,7 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - django
+      - dj-gunicorn
   
 volumes:
   static:
