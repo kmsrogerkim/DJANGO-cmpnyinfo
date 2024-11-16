@@ -1,0 +1,95 @@
+{%load static%}
+{%include 'navbar.html'%}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{%static 'UI/css/globals.css'%}" />
+        <link rel="stylesheet" href="{%static 'UI/css/styleguide.css'%}" />
+        <link rel="stylesheet" href="{%static 'UI/css/cmpny_style.css'%}" />
+        
+        <!--Google Font, NOT STATIC-->
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@900&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="home">
+            {%include 'search-header.html'%}
+            <div class="intro-box">
+                <h1 class="title">{{basic_info.cmpnyname}}</h1>
+                <div class="info-box">
+                    <a class="info-item"><span style="font-weight:bold;">Market Cap</span>: <span style="font-weight:bold; font-style: italic;">{{basic_info.market_cap}}</span></a>
+                    <a class="info-item"><span style="font-weight:bold;">Stock(ystrd)</span>: <span style="font-weight:bold; font-style: italic;">{{basic_info.Yesterday}}</span></a>
+                    <a class="info-item"><span style="font-weight:bold;">High</span>:<span style="font-weight:bold; font-style: italic;">{{basic_info.Y_high}}</span></a>
+                    <a class="info-item"><span style="font-weight:bold;">Low</span>:<span style="font-weight:bold; font-style: italic;">{{basic_info.Y_low}}</span></a>
+                    <a class="info-item"><span style="font-weight:bold;">Highest-52wks</span>: <span style="font-weight:bold; font-style: italic;">{{basic_info.F_high}}</span></a>
+                    <a class="info-item"><span style="font-weight:bold;">Lowest-52wks</span>: <span style="font-weight:bold; font-style: italic;">{{basic_info.F_low}}</span></a>
+                </div>
+            </div>
+            <div class="intro-box">
+                <h1 class="title">Summary of Financial Statement</h1>
+                <div class="table-box">
+                    <table>
+                        <tr>
+                            <th>Company_Name</th>
+                            <th>Year</th>
+                            <th>Total_Assets</th>
+                            <th>Total_Debt</th>
+                            <th>Total_Equity</th>
+                            <th>Revenue</th>
+                            <th>Operating_Income(added)</th>
+                            <th>Net_Income(added)</th>
+                            <th>Revenue_Increase_Rate</th>
+                            <th>Operating_Income(added)_Increase_Rate</th>
+                            <th>Net_Income(added)_Increase_Rate</th>
+                            <th>Debt_Equity_Ratio</th>
+                            <th>ROA</th>
+                            <th>ROE</th>
+                            <th>EPS</th>
+                            <th>PER</th>
+                        </tr>
+                        {% for dicts in finstate_sum %}
+                        <tr>
+                            {% for key,value in dicts.items %}
+                                <td>{{ value }}</td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+            <div class="graph-box">
+                <h1 class="title">Graphs</h1>
+                <div class="tabs">
+                    <!-- Tab no.1 Box Plot-->
+                    <input type="radio" class="tabs__radio" name="graph-tabs" id="tab1" checked>
+                    <label for="tab1" class="tabs__label">Box Plot</label>
+                    <div class="graph tabs__content">
+                        {{ box_plot|safe }}
+                    </div>
+                    
+                    <!-- Tab no.2 Numbers-->
+                    <input type="radio" class="tabs__radio" name="graph-tabs" id="tab2" checked>
+                    <label for="tab2" class="tabs__label">Numbers</label>
+                    <div class="graph tabs__content">
+                        {{ number_graph|safe }}
+                    </div>
+                    
+                    <!-- Tab no.3 Ratios-->
+                    <input type="radio" class="tabs__radio" name="graph-tabs" id="tab3" checked>
+                    <label for="tab3" class="tabs__label">Ratios</label>
+                    <div class="graph tabs__content">
+                        {{ ratio_graph|safe }}
+                    </div>
+                </div>
+            </div>
+            <div class="page-end">
+                <h1 class="text"> Thank you for visiting my website! </h1>
+                <p class="text">Check out my <a href="https://www.github.com/RogerKimJazzLover" target="_blank">github profile!</a></p>
+            <br>
+            <br>
+            <br>
+            </div>
+        </div>
+    </body>
+</html>

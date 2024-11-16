@@ -1,0 +1,150 @@
+.home {
+    background-color: #ffffff;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .home .intro-box {
+    background-color: white;
+    position: relative;
+    top: 52px;
+    width: 96%;
+    height: 30%;
+    margin: 10px;
+    margin-top: 20px;
+    border: 1px solid grey;
+    box-shadow: 5px 10px 15px;
+  }
+
+  .home .title {
+    position: relative;
+    top: 15px;
+    left: 10px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 18px;
+    color: black;
+  }
+
+  /*For the first box*/
+  .home .info-box {
+    position: relative;
+    top: 20px;
+    margin-left: 10px;
+    height: 80%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+  }
+
+  .home .info-item {
+    font-family: sans-serif;
+    font-size: 16px;
+    color: black;
+    align-self: center;
+  }
+  
+  .home .table-box {
+    background-color: white;
+    margin-top: 25px;
+    margin-left: 10px;
+    height: 75%;
+    overflow-x: auto;
+    font-family: sans-serif;
+  }
+  
+  table {
+    height: 95%;
+    width: 200%;
+    border-collapse: separate !important;
+  }
+  
+  th {
+    font-size: 14px;
+    text-align: left;
+    padding-right: 1rem !important;
+    padding-bottom: 0.3rem !important;
+    font-weight: bold !important;
+  }
+  td {
+    font-size: 12px;
+    padding-right: 1rem !important;
+    padding-bottom: 0.3rem !important;
+  }
+
+  .home .graph-box {
+    background-color: white;
+    position: relative;
+    top: 52px;
+    width: 96%;
+    height: 550px;
+    margin: 10px;
+    margin-top: 20px;
+    border: 1px solid grey;
+    box-shadow: 5px 10px 15px;
+  }
+
+  .home .graph-box .graph {
+    overflow-x: auto;
+    width: 200%;
+  }
+
+  .home .graph-box .tabs {
+    font-family: sans-serif;
+    margin-top: 25px;
+    height: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-x: auto;
+  }
+  .home .graph-box .tabs__radio {
+    display: none;
+  }
+  .home .graph-box .tabs__label {
+    padding: 10px 16px;
+    cursor: pointer;
+  }
+  .home .graph-box .tabs__content {
+    order: 1;
+    display: none;
+    width: 200%;
+  }
+  .home .graph-box .tabs__radio:checked + .tabs__label {
+    font-weight: bold;
+    color: #009578;
+    border-bottom: 2px solid #009578;
+  }
+  .home .graph-box .tabs__radio:checked + .tabs__label + .tabs__content {
+    display: initial;
+  }
+
+  .home .page-end {
+    background-color: black;
+    position: relative;
+    top: 52px;
+    bottom: 0;
+    width: 100%;
+    margin: 10px;
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .home .page-end .text{
+    color: white;
+  }
+
+@media screen and (min-width: 430px) {
+  .home .intro-box {
+    background-color: white;
+    position: relative;
+    top: 70px;
+    width: 96%;
+    height: 30%;
+    margin: 10px;
+    margin-top: 20px;
+    border: 1px solid grey;
+    box-shadow: 5px 10px 15px;
+  }
+}

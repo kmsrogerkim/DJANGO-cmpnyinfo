@@ -1,0 +1,20 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{%static 'UI/css/globals.css'%}" />
+        <link rel="stylesheet" href="{%static 'UI/css/styleguide.css'%}" />
+        <link rel="stylesheet" href="{%static 'UI/css/search_style.css'%}" />
+      </head>
+    <body>
+        <div class="search-header">
+            <img class="img" src="{%static 'UI/img/search.svg'%}" />
+            <form method="post">
+            {%csrf_token%}
+            <input type="text" name="cmpnyname" id="cmpnyname" placeholder="Company Name">
+            </form>
+        </div>
+    </body>
+</html>

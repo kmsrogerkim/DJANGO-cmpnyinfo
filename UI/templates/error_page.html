@@ -1,0 +1,43 @@
+{%load static%}
+{%include 'navbar.html'%}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <style>
+        div {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .title {
+            color: grey;
+            font-family: sans-serif;
+            font-size: 20px;
+            font-style: italic;
+        }
+
+        .paragraph {
+            margin: 20px;
+            color: grey;
+            font-family: sans-serif;
+            font-size: 16px;
+            font-style: italic;
+        }
+    </style>
+    <body>
+        <div>
+            <h1 class = "title">Error Occured!</h1>
+            <p class="paragraph">Something went wrong! IDK What went wrong! Just go back to the home page!</p>
+            <p class="paragraph">But here are some possibilities</p>
+            <p class="paragraph">1. The company is too young and doesn't have enough data</p>
+            <p class="paragraph">2. There's too much traffic</p>
+        </div>
+    </body>
+</html>

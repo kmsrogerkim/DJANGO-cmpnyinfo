@@ -1,0 +1,9 @@
+docs_cache/
+UI/__pycache__/
+cmpnyinfo/__pycache__/
+API/__pycache__/
+API/api_local/__pycache__/
+API/api_local/docs_cache/
+*.pyc
+
+.env

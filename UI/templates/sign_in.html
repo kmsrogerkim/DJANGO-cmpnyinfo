@@ -1,0 +1,123 @@
+{%load static%}
+{%include 'navbar.html'%}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f5f5f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            height: 90vh;
+            font-size: 45px;
+        }
+
+        .login{
+            width: 80%;
+            overflow: hidden;
+            margin: auto;
+            margin: 20 0 0 450px;
+            padding: 80px;
+            background: white;
+            border-radius: 15px ;
+            border:solid 1px black
+        }
+        
+        @media (min-width: 1000px) {
+            body {
+                background-color: #f5f5f5;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                display: flex;
+                justify-content: center;
+                align-items: flex-start;
+                height: 90vh;
+                font-size: 25px;
+            }
+            .login{
+                width: 80%;
+                overflow: hidden;
+                margin: auto;
+                margin-top: 200px;
+                padding: 80px;
+                background: white;
+                border-radius: 15px ;
+                border:solid 1px black
+            }
+        }
+
+        .form-control {
+            border-radius: 0;
+            box-shadow: none;
+            border-color: #d2d6de;
+            font-size: 30px;
+        }
+
+       .form-control:focus {
+           border-color:#000000; 
+           box-shadow:none; 
+       }
+
+       .btn-primary {
+           border-radius:0; 
+           background-color:#000000; 
+           border-color:#000000 ;
+           font-size:40px;
+           margin-top: 2cm;
+       }
+       
+       h2{
+          color:#000000
+        }
+      
+        label{
+            color:#000000
+        }
+      
+        .alert{
+            text-align:center
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login">
+    <!-- Add the rounded-box class here -->
+    <div class="col-md-12">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        <h2 class="text-center mb-4">Login</h2>
+        <form method="POST">
+           {%csrf_token%}
+           <!-- Username -->
+           <div class= "form-group">
+               <label for= "usename">Username</label>
+               <input type= "text" class= "form-control" name= "username" id= "username" placeholder= "Enter username">
+           </div>
+           <!-- Password -->
+           <div class= "form-group">
+               <label for= "password">Password</label>
+               <input type= "password" class= "form-control" name= "password" id = "password" placeholder = "Enter password">
+           </div>
+          <!-- Submit button -->
+          </button><button type ="submit" class ="btn btn-primary btn-block">Login</button>    
+        </form>        
+    </div>   
+</div>
+
+
+<script src='https://code.jquery.com/jquery-3.5.1.slim.min.js'></script>    
+<script src='https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js'></script>    
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js'></script>
+
+</body>
+</html>

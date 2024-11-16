@@ -1,0 +1,81 @@
+{%load static%}
+{%include 'navbar.html'%}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{%static 'UI/css/globals.css'%}" />
+    <link rel="stylesheet" href="{%static 'UI/css/styleguide.css'%}" />
+    <link rel="stylesheet" href="{%static 'UI/css/style.css'%}" />
+  </head>
+  <body>
+    <div class="home">
+      <div class="search-bar-div">
+        {%include 'search-header.html'%}
+      </div>
+
+      <div class="get-started">
+        <h1>GET STARTED</h1>
+        <br>
+        <span style="text-align: center;">Please type the CORRECT name of the company you are looking for.</span>
+        <a>e.x: 삼성전자(V) 삼성(X)</a>
+        <br>
+        <span style="text-align: center;">Or, you cant type the corporation code for your company.</span>
+        <a>e.x: 삼성전자(005930) SK하이닉스(000660)</a>
+      </div>
+
+      <div class="main-body-wrapper">
+        <div class="welcome">
+          <h1>Welcome to cmpnyinfo!</h1>
+          <div class="content">
+            <img class="line-2" src="{%static 'UI/img/line-4.svg'%}" />
+            <div class="paragraph">
+              <span>This website is provides a </span>
+              <span>comprehensive overview</span>
+              <span> of </span>
+              <span>financial statements</span>
+              <span> in a user-friendly format. <br /></span>
+            </div>
+          </div>
+        </div>
+      
+        <div class="welcome">
+          <br>
+          <h1>It offers</h1>
+          <div class="content">
+            <img class="line-3" src="{%static 'UI/img/line-5.svg'%}" />
+            <div class="paragraph">
+              <span>easy-to-understand graphs</span>
+              <span>insightful analytical data</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="welcome">
+          <br>
+          <h1>Why cmpnyinfo?</h1>
+          <div class="content">
+            <img class="line-4" src="{%static 'UI/img/line-6.svg'%}" />
+            <div class="paragraph">
+              <span>If you were asking for why you should use cmpnyinfo, then the</span>
+              <p>answers would be because cmpnyinfo is</p>
+              <span>1. Simple to read, simple to understand<br /></span>
+              <span>2. Less is more. Essential information only<br /></span>
+              <span>3. Lightweight. No need for pop-ups<br /></span>
+              <span>4. User-friendly.<br /></span>
+              <span>5. Accessible<br /></span>
+              <span>6. Mobile-friendly<br /></span>
+              <span>7. Cool<br /></span>
+              <p>8. many more...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="bottom">
+        Currently, the website provides information for 100 companies listed in the KOSPI (Korean Stock Price Index).
+      </div> -->
+    </div>
+  </body>
+</html>
