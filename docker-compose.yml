@@ -2,7 +2,7 @@ version: '3'
 
 services:
   dj-gunicorn:
-    image: dj-gunicorn:1.2
+    image: dj:0
     env_file:
       - .env
     build:
@@ -10,7 +10,7 @@ services:
     ports:
       - "8000:8000"
   nginx:
-    image: nginx:3.1
+    image: nginx:0
     build: 
       context: .
       dockerfile: ./nginx/Dockerfile

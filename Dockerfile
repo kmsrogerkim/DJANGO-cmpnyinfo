@@ -1,11 +1,11 @@
 FROM python:3.10-alpine
 
-WORKDIR /usr/src/app
+WORKDIR /
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-COPY . /usr/src/app/
+COPY . /
 RUN pip install -r requirements.txt
 
 EXPOSE 8000
