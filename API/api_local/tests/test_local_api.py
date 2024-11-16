@@ -13,11 +13,13 @@ import create_bf_for_analysis as cbfa
 
 from requests.exceptions import SSLError
 
+from dotenv import load_dotenv
 from tabulate import tabulate
 import OpenDartReader
 import pandas as pd
 import pickle, os
 
+load_dotenv()
 dart_my_api = os.getenv("DART_API_KEY")
 
 class Logger():

@@ -37,7 +37,7 @@ def main():
         #1. Creating the name_code
         print('#' * 100)
         print("\nSYSTEM: Creating name_code.pkl file......")
-        subprocess.run(['python', file1])
+        subprocess.run(['python3', file1])
         print("\nSYSTEM: Finished creating name_code.pkl file")
 
         #2. Creating all the Stock prices for each cmpny
@@ -47,19 +47,19 @@ def main():
         print("\nSYSTEM: Finished emptying")
         print('#' * 100)
         print("\nSYSTEM: Creating stock price files......")
-        subprocess.run(['python', file2])
+        subprocess.run(['python3', file2])
         print("\nSYSTEM: Finished creating stock price files")
 
     #3. Creating the basic info
     print('#' * 100)
     print("\nSYSTEM: Creating basic_info.csv file......")
-    subprocess.run(['python', file3])
+    subprocess.run(['python3', file3])
     print("\nSYSTEM: Finished creating basic_info.csv file")
     
     #4. Creating the basic info for analysis
     print('#' * 100)
     print("\nSYSTEM: Creating basic_info_for_analysis.csv file......")
-    subprocess.run(['python', file4])
+    subprocess.run(['python3', file4])
     print("\nSYSTEM: Finished creating basic_info_for_analysis.csv file")
 
 if __name__ == "__main__":

@@ -3,6 +3,7 @@ import lib_one, custom_exceptions
 from requests.exceptions import SSLError
 
 import FinanceDataReader as fdr
+from dotenv import load_dotenv
 from tabulate import tabulate
 import OpenDartReader
 from tqdm import tqdm
@@ -11,6 +12,7 @@ import numpy as np
 import pickle, os
 import time, logging 
 
+load_dotenv()
 dart_my_api = os.getenv("DART_API_KEY")
 
 def GetIncreaseRate(BasicInfo):
